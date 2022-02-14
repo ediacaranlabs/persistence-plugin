@@ -11,7 +11,6 @@ public class PluginInstaller
 
 	public static final String PLUGIN 					= "persistence";
 	
-	
 	public void install() throws Throwable{
 	}
 
