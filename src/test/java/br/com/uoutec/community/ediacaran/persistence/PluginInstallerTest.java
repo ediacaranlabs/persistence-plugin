@@ -29,6 +29,7 @@ public class PluginInstallerTest {
 		reg.setName("BRASIL");
 		
 		countryRegistry.registerCountry(reg);
+		countryRegistry.flush();
 		Country c = countryRegistry.getCountry(1);
 	}
 	
