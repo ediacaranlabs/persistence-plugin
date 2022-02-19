@@ -6,6 +6,8 @@ import org.junit.runner.RunWith;
 import br.com.uoutec.community.ediacaran.core.persistence.entity.Country;
 import br.com.uoutec.community.ediacaran.core.persistence.registry.CountryRegistry;
 import br.com.uoutec.community.ediacaran.core.persistence.registry.CountryRegistryException;
+import br.com.uoutec.community.ediacaran.core.persistence.registry.LanguageRegistryException;
+import br.com.uoutec.community.ediacaran.core.persistence.registry.RegionRegistryException;
 import br.com.uoutec.community.ediacaran.test.ApplicationConfigParameterTest;
 import br.com.uoutec.community.ediacaran.test.ApplicationConfigParametersTest;
 import br.com.uoutec.community.ediacaran.test.ApplicationConfigTest;
@@ -23,13 +25,8 @@ public class PluginInstallerTest {
 
 	@Test
 	@PluginContext("persistence")
-	public void test(CountryRegistry countryRegistry) throws CountryRegistryException, ClassNotFoundException {
-		Country reg = new Country();
-		reg.setId(1);
-		reg.setName("BRASIL");
-		
-		countryRegistry.registerCountry(reg);
-		countryRegistry.flush();
+	public void test(CountryRegistry countryRegistry) throws CountryRegistryException, ClassNotFoundException, LanguageRegistryException, RegionRegistryException {
+		TestDataLoader.loadData();
 		Country c = countryRegistry.getCountry(1);
 	}
 	
