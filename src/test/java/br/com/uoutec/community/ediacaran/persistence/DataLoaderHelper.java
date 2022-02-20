@@ -17,24 +17,24 @@ public class DataLoaderHelper {
 
 	public static void loadData() throws LanguageRegistryException, RegionRegistryException, CountryRegistryException {
 		LanguageRegistry languageRegistry = EntityContextPlugin.getEntity(LanguageRegistry.class);
-		languageRegistry.registerLanguage(new Language(1, "pt", "por", "Português", "Portuguese"));
-		languageRegistry.registerLanguage(new Language(2, "en", "eng", "English", "English"));
+		languageRegistry.registerLanguage(new Language(0, "pt", "por", "Português", "Portuguese"));
+		languageRegistry.registerLanguage(new Language(0, "en", "eng", "English", "English"));
 		languageRegistry.flush();
 		
 		RegionRegistry regionRegistry = EntityContextPlugin.getEntity(RegionRegistry.class);
-		regionRegistry.registerRegion(new Region(1, 0, "América do Sul", new Language(1, null, null, null, null), null));
-		regionRegistry.registerRegion(new Region(2, 0, "South America", new Language(2, null, null, null, null), null));
+		regionRegistry.registerRegion(new Region(0, 0, "América do Sul", new Language(1, null, null, null, null), null));
+		regionRegistry.registerRegion(new Region(0, 0, "South America", new Language(2, null, null, null, null), null));
 		regionRegistry.flush();
 		
 		CountryRegistry countryRegistry = EntityContextPlugin.getEntity(CountryRegistry.class);
 		countryRegistry.registerCountry(
-				new Country(1, "Brasil", 0, 1, "BR", "BRA", ".com.br", "BRL", 
+				new Country(0, "Brasil", 1, 0, "BR", "BRA", ".com.br", "BRL", 
 						new Language(1, null, null, null, null), 
 						new Region(1, 0, null, null, null)
 				)
 		);
 		countryRegistry.registerCountry(
-				new Country(2, "Brazil", 1, 2, "BR", "BRA", ".com.br", "BRL", 
+				new Country(0, "Brazil", 2, 1, "BR", "BRA", ".com.br", "BRL", 
 						new Language(2, null, null, null, null), 
 						new Region(2, 0, null, null, null)
 				)
@@ -43,7 +43,14 @@ public class DataLoaderHelper {
 	}
 
 	public static void clearData() {
+		
 		EntityManager em = EntityContextPlugin.getEntity(EntityManager.class);
 		em.createNativeQuery("TRUNCATE SCHEMA PUBLIC RESTART IDENTITY AND COMMIT NO CHECK").executeUpdate();
+		
+		if (em.getTransaction().isActive()) {
+			em.getTransaction().rollback();
+	    }
+		
+		em.clear();
 	}
 }
