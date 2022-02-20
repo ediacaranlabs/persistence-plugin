@@ -1,5 +1,6 @@
 package br.com.uoutec.community.ediacaran.persistence;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -15,18 +16,29 @@ import br.com.uoutec.community.ediacaran.test.EdiacaranTestRunner;
 import br.com.uoutec.community.ediacaran.test.PluginContext;
 
 @RunWith(EdiacaranTestRunner.class)
-@ApplicationConfigTest("ediacaran/config/ediacaran-config.xml")
+@ApplicationConfigTest("ediacaran/test/countryregistrytest/ediacaran-config.xml")
 @ApplicationConfigParametersTest({
+	@ApplicationConfigParameterTest(paramName="plugins_config_path", paramValue="ediacaran/test/countryregistrytest/config"),
+	@ApplicationConfigParameterTest(paramName="security_plugins_path", paramValue="ediacaran/test/countryregistrytest/config"),
+	@ApplicationConfigParameterTest(paramName="app_policy_path", paramValue="ediacaran/test/countryregistrytest/run.policy"),
+	@ApplicationConfigParameterTest(paramName="plugins_path", paramValue="ediacaran/test/countryregistrytest/plugins"),
 	@ApplicationConfigParameterTest(paramName="default", paramValue="classpath:META-INF/ediacaran-test.properties"),
 	@ApplicationConfigParameterTest(paramName="logger", paramValue="classpath:META-INF/log4j.configuration"),
-	@ApplicationConfigParameterTest(paramName="path", paramValue="ediacaran")
+	@ApplicationConfigParameterTest(paramName="path", paramValue="../../../ediacaran-base-test")
 })
 public class PluginInstallerTest {
 
+	/*
+	@Before
+	public void setup() {
+		TestDataLoader.clearData();
+	}
+	*/
+	
 	@Test
 	@PluginContext("persistence")
 	public void test(CountryRegistry countryRegistry) throws CountryRegistryException, ClassNotFoundException, LanguageRegistryException, RegionRegistryException {
-		TestDataLoader.loadData();
+		DataLoaderHelper.loadData();
 		Country c = countryRegistry.getCountry(1);
 	}
 	
