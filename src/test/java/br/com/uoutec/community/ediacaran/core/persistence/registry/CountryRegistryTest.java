@@ -2,6 +2,14 @@ package br.com.uoutec.community.ediacaran.core.persistence.registry;
 
 import static br.com.uoutec.community.ediacaran.persistence.DataLoaderHelper.clearData;
 import static br.com.uoutec.community.ediacaran.persistence.DataLoaderHelper.loadData;
+import static br.com.uoutec.community.ediacaran.persistence.DataLoaderHelper.registerLangPt;
+import static br.com.uoutec.community.ediacaran.persistence.DataLoaderHelper.registerLangEn;
+import static br.com.uoutec.community.ediacaran.persistence.DataLoaderHelper.registerRegionAmericaDoSulPt;
+import static br.com.uoutec.community.ediacaran.persistence.DataLoaderHelper.registerRegionAmericaDoSulEn;
+import static br.com.uoutec.community.ediacaran.persistence.DataLoaderHelper.registerRegionAmericaDoNortePt;
+import static br.com.uoutec.community.ediacaran.persistence.DataLoaderHelper.registerCountryBrasilPtLang;
+import static br.com.uoutec.community.ediacaran.persistence.DataLoaderHelper.registerCountryBrasilEnLang;
+import static br.com.uoutec.community.ediacaran.persistence.DataLoaderHelper.registerCountryEstadosUnidosPtLang;
 
 import java.util.List;
 import java.util.Locale;
@@ -12,7 +20,6 @@ import org.junit.runner.RunWith;
 
 import br.com.uoutec.community.ediacaran.core.persistence.entity.Country;
 import br.com.uoutec.community.ediacaran.core.persistence.entity.Language;
-import br.com.uoutec.community.ediacaran.core.persistence.entity.Region;
 import br.com.uoutec.community.ediacaran.test.ApplicationConfigParameterTest;
 import br.com.uoutec.community.ediacaran.test.ApplicationConfigParametersTest;
 import br.com.uoutec.community.ediacaran.test.ApplicationConfigTest;
@@ -39,40 +46,9 @@ public class CountryRegistryTest {
 			RegionRegistry regionRegistry) throws Throwable {
 		
 		clearData();
-		
-		languageRegistry.registerLanguage(
-				Language.builder()
-					.withIso6391("pt")
-					.withIso6392t("por")
-					.withName("Português")
-					.withIsoName("Portuguese")
-					.build()
-		);
-		languageRegistry.flush();
-		
-		regionRegistry.registerRegion(
-				Region.builder()
-					.withName("América do Sul")
-					.withLanguage(Language.builder().withId(1).build())
-					.build()
-		);
-		
-		regionRegistry.flush();
-		
-		countryRegistry.registerCountry(
-				Country.builder()
-					.withName("Brasil")
-					.withUni(1)
-					.withIsoAlpha2("BR")
-					.withIsoAlpha3("BRA")
-					.withTld(".com.br")
-					.withIso4217("BRL")
-					.withLanguage(Language.builder().withId(1).build())
-					.withRegion(Region.builder().withId(1).build())
-					.build()
-		);
-		
-		countryRegistry.flush();
+		registerLangPt();
+		registerRegionAmericaDoSulPt();
+		registerCountryBrasilPtLang();
 		
 		Country country = countryRegistry.getCountry(1);
 
@@ -198,60 +174,12 @@ public class CountryRegistryTest {
 			RegionRegistry regionRegistry) throws Throwable {
 		
 		clearData();
-
-		languageRegistry.registerLanguage(
-				Language.builder()
-					.withIso6391("pt")
-					.withIso6392t("por")
-					.withName("Português")
-					.withIsoName("Portuguese")
-					.build()
-		);
-		languageRegistry.flush();
 		
-		regionRegistry.registerRegion(
-				Region.builder()
-					.withName("América do Sul")
-					.withLanguage(Language.builder().withId(1).build())
-					.build()
-		);
-
-		regionRegistry.registerRegion(
-				Region.builder()
-					.withName("América do Norte")
-					.withLanguage(Language.builder().withId(1).build())
-					.build()
-		);
-		
-		regionRegistry.flush();
-		
-		countryRegistry.registerCountry(
-				Country.builder()
-					.withName("Brasil")
-					.withUni(1)
-					.withIsoAlpha2("BR")
-					.withIsoAlpha3("BRA")
-					.withTld(".com.br")
-					.withIso4217("BRL")
-					.withLanguage(Language.builder().withId(1).build())
-					.withRegion(Region.builder().withId(1).build())
-					.build()
-		);
-
-		countryRegistry.registerCountry(
-				Country.builder()
-					.withName("Estados Unidos")
-					.withUni(2)
-					.withIsoAlpha2("US")
-					.withIsoAlpha3("USA")
-					.withTld(".com")
-					.withIso4217("USD")
-					.withLanguage(Language.builder().withId(1).build())
-					.withRegion(Region.builder().withId(2).build())
-					.build()
-		);
-		
-		countryRegistry.flush();
+		registerLangPt();
+		registerRegionAmericaDoSulPt();
+		registerRegionAmericaDoNortePt();
+		registerCountryBrasilPtLang();
+		registerCountryEstadosUnidosPtLang();
 		
 		List<Country> list = countryRegistry.getAll();
 		
