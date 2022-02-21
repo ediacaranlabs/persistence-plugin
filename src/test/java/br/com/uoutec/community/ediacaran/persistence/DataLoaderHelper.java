@@ -33,18 +33,24 @@ public class DataLoaderHelper {
 		regionRegistry.flush();
 	}
 
-	public static void registerRegionAmericaDoNortePt() throws RegionRegistryException {
-		RegionRegistry regionRegistry = EntityContextPlugin.getEntity(RegionRegistry.class);
-		regionRegistry.registerRegion(new Region(0, 0, "América do Norte", new Language(1, null, null, null, null), null));
-		regionRegistry.flush();
-	}
-	
 	public static void registerRegionAmericaDoSulEn() throws RegionRegistryException {
 		RegionRegistry regionRegistry = EntityContextPlugin.getEntity(RegionRegistry.class);
 		regionRegistry.registerRegion(new Region(0, 0, "South America", new Language(2, null, null, null, null), null));
 		regionRegistry.flush();
 	}
 
+	public static void registerRegionAmericaDoNortePt() throws RegionRegistryException {
+		RegionRegistry regionRegistry = EntityContextPlugin.getEntity(RegionRegistry.class);
+		regionRegistry.registerRegion(new Region(0, 0, "América do Norte", new Language(1, null, null, null, null), null));
+		regionRegistry.flush();
+	}
+
+	public static void registerRegionAmericaDoNorteEn() throws RegionRegistryException {
+		RegionRegistry regionRegistry = EntityContextPlugin.getEntity(RegionRegistry.class);
+		regionRegistry.registerRegion(new Region(0, 0, "North America", new Language(2, null, null, null, null), null));
+		regionRegistry.flush();
+	}
+	
 	public static void registerCountryBrasilPtLang() throws CountryRegistryException {
 		CountryRegistry countryRegistry = EntityContextPlugin.getEntity(CountryRegistry.class);
 		countryRegistry.registerCountry(
