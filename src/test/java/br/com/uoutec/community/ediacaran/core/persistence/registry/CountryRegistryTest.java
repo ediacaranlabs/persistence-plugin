@@ -2,14 +2,11 @@ package br.com.uoutec.community.ediacaran.core.persistence.registry;
 
 import static br.com.uoutec.community.ediacaran.persistence.DataLoaderHelper.clearData;
 import static br.com.uoutec.community.ediacaran.persistence.DataLoaderHelper.loadData;
-import static br.com.uoutec.community.ediacaran.persistence.DataLoaderHelper.registerLangPt;
-import static br.com.uoutec.community.ediacaran.persistence.DataLoaderHelper.registerLangEn;
-import static br.com.uoutec.community.ediacaran.persistence.DataLoaderHelper.registerRegionAmericaDoSulPt;
-import static br.com.uoutec.community.ediacaran.persistence.DataLoaderHelper.registerRegionAmericaDoSulEn;
-import static br.com.uoutec.community.ediacaran.persistence.DataLoaderHelper.registerRegionAmericaDoNortePt;
 import static br.com.uoutec.community.ediacaran.persistence.DataLoaderHelper.registerCountryBrasilPtLang;
-import static br.com.uoutec.community.ediacaran.persistence.DataLoaderHelper.registerCountryBrasilEnLang;
 import static br.com.uoutec.community.ediacaran.persistence.DataLoaderHelper.registerCountryEstadosUnidosPtLang;
+import static br.com.uoutec.community.ediacaran.persistence.DataLoaderHelper.registerLangPt;
+import static br.com.uoutec.community.ediacaran.persistence.DataLoaderHelper.registerRegionAmericaDoNortePt;
+import static br.com.uoutec.community.ediacaran.persistence.DataLoaderHelper.registerRegionAmericaDoSulPt;
 
 import java.util.List;
 import java.util.Locale;
@@ -92,7 +89,7 @@ public class CountryRegistryTest {
 
 	@Test
 	@PluginContext("persistence")
-	public void testFindByID(
+	public void testFindByUFI(
 			CountryRegistry countryRegistry,
 			LanguageRegistry languageRegistry) throws Throwable {
 		
