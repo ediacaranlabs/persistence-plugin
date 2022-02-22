@@ -110,17 +110,4 @@ public class DataLoaderHelper {
 		em.clear();
 	}
 	
-	public static interface Caller {
-        public <V> V call(Callable<V> callable) throws Exception;
-    }
-	
-	public static class TransactionCaller implements Caller {
-
-		@Transactional
-        public <V> V call(Callable<V> callable) throws Exception {
-            return callable.call();
-        }
-		
-    }
-	
 }

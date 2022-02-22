@@ -5,13 +5,16 @@ import static br.com.uoutec.community.ediacaran.plugins.EntityContextPlugin.getE
 
 import java.util.concurrent.Callable;
 
+import javax.persistence.TransactionRequiredException;
+import javax.transaction.TransactionalException;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import br.com.uoutec.community.ediacaran.core.persistence.entity.Language;
+import br.com.uoutec.community.ediacaran.core.persistence.test.TransactionCaller;
 import br.com.uoutec.community.ediacaran.persistence.DataLoaderHelper;
-import br.com.uoutec.community.ediacaran.persistence.DataLoaderHelper.TransactionCaller;
 import br.com.uoutec.community.ediacaran.test.ApplicationConfigParameterTest;
 import br.com.uoutec.community.ediacaran.test.ApplicationConfigParametersTest;
 import br.com.uoutec.community.ediacaran.test.ApplicationConfigTest;
@@ -33,7 +36,7 @@ public class JTATransactionTest {
 
 	@Test
 	@PluginContext("persistence")
-	public void simpleTransaction(LanguageRegistry languageRegistry) throws Exception {
+	public void simpleTransactionTest(LanguageRegistry languageRegistry) throws Exception {
 
 		getEntity(TransactionCaller.class)
 		.call(new Callable<Object>() {
@@ -52,12 +55,31 @@ public class JTATransactionTest {
 			                return null;
 		            }
 	        });
-		//org.hsqldb.jdbc.pool.JDBCXADataSource
-		//org.hsqldb.jdbc.JDBCDataSourceFactory
+		
 		Language lang = languageRegistry.getLanguageByIso6391("pt");
 		
 		Assert.assertNotNull(lang);
 		Assert.assertEquals("pt", lang.getIso6391());
+		
+	}
+
+	
+	@Test
+	@PluginContext("persistence")
+	public void requireTransactionTest() throws Throwable {
+		try {
+			//clearData();
+			DataLoaderHelper.registerLangPt();
+			Assert.fail("expected javax.persistence.TransactionRequiredException(\"no transaction is in progress\")");
+		}
+		catch(Throwable e) {
+			while(e != null && !(e instanceof TransactionRequiredException)) {
+				e = e.getCause();
+			}
+			if(!(e instanceof TransactionRequiredException && "no transaction is in progress".equals(e.getMessage()))) {
+				throw e;
+			}
+		}
 		
 	}
 	
