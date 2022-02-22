@@ -6,7 +6,6 @@ import static br.com.uoutec.community.ediacaran.plugins.EntityContextPlugin.getE
 import java.util.concurrent.Callable;
 
 import javax.persistence.TransactionRequiredException;
-import javax.transaction.TransactionalException;
 
 import org.junit.Assert;
 import org.junit.Test;
