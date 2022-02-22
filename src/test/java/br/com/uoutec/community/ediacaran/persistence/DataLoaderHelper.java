@@ -1,6 +1,9 @@
 package br.com.uoutec.community.ediacaran.persistence;
 
+import java.util.concurrent.Callable;
+
 import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 
 import br.com.uoutec.community.ediacaran.core.persistence.entity.Country;
 import br.com.uoutec.community.ediacaran.core.persistence.entity.Language;
@@ -106,4 +109,18 @@ public class DataLoaderHelper {
 		
 		em.clear();
 	}
+	
+	public static interface Caller {
+        public <V> V call(Callable<V> callable) throws Exception;
+    }
+	
+	public static class TransactionCaller implements Caller {
+
+		@Transactional
+        public <V> V call(Callable<V> callable) throws Exception {
+            return callable.call();
+        }
+		
+    }
+	
 }
