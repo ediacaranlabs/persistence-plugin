@@ -18,8 +18,10 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import br.com.uoutec.community.ediacaran.core.persistence.entity.Language;
-import br.com.uoutec.community.ediacaran.core.persistence.entity.Region;
+import br.com.uoutec.community.ediacaran.persistence.entity.Language;
+import br.com.uoutec.community.ediacaran.persistence.entity.Region;
+import br.com.uoutec.community.ediacaran.persistence.registry.LanguageRegistry;
+import br.com.uoutec.community.ediacaran.persistence.registry.RegionRegistry;
 import br.com.uoutec.community.ediacaran.test.ApplicationConfigParameterTest;
 import br.com.uoutec.community.ediacaran.test.ApplicationConfigParametersTest;
 import br.com.uoutec.community.ediacaran.test.ApplicationConfigTest;

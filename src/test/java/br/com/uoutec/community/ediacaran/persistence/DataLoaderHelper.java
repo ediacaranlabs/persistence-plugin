@@ -5,15 +5,15 @@ import java.util.concurrent.Callable;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
-import br.com.uoutec.community.ediacaran.core.persistence.entity.Country;
-import br.com.uoutec.community.ediacaran.core.persistence.entity.Language;
-import br.com.uoutec.community.ediacaran.core.persistence.entity.Region;
-import br.com.uoutec.community.ediacaran.core.persistence.registry.CountryRegistry;
-import br.com.uoutec.community.ediacaran.core.persistence.registry.CountryRegistryException;
-import br.com.uoutec.community.ediacaran.core.persistence.registry.LanguageRegistry;
-import br.com.uoutec.community.ediacaran.core.persistence.registry.LanguageRegistryException;
-import br.com.uoutec.community.ediacaran.core.persistence.registry.RegionRegistry;
-import br.com.uoutec.community.ediacaran.core.persistence.registry.RegionRegistryException;
+import br.com.uoutec.community.ediacaran.persistence.entity.Country;
+import br.com.uoutec.community.ediacaran.persistence.entity.Language;
+import br.com.uoutec.community.ediacaran.persistence.entity.Region;
+import br.com.uoutec.community.ediacaran.persistence.registry.CountryRegistry;
+import br.com.uoutec.community.ediacaran.persistence.registry.CountryRegistryException;
+import br.com.uoutec.community.ediacaran.persistence.registry.LanguageRegistry;
+import br.com.uoutec.community.ediacaran.persistence.registry.LanguageRegistryException;
+import br.com.uoutec.community.ediacaran.persistence.registry.RegionRegistry;
+import br.com.uoutec.community.ediacaran.persistence.registry.RegionRegistryException;
 import br.com.uoutec.community.ediacaran.plugins.EntityContextPlugin;
 
 public class DataLoaderHelper {
