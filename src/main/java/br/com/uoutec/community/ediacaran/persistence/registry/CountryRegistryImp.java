@@ -10,6 +10,7 @@ import javax.inject.Singleton;
 import br.com.uoutec.community.ediacaran.persistence.entity.Country;
 import br.com.uoutec.community.ediacaran.persistence.entity.Language;
 import br.com.uoutec.community.ediacaran.persistence.entityaccess.CountryEntityAccess;
+import br.com.uoutec.community.ediacaran.plugins.SecurityUtil;
 import br.com.uoutec.entity.registry.AbstractRegistry;
 
 @Singleton
@@ -23,11 +24,7 @@ public class CountryRegistryImp
 	
 	public Country getCountryByUFI(int value, Language lang) throws CountryRegistryException{
 		
-		SecurityManager sm = System.getSecurityManager();
-
-		if(sm != null) {
-			sm.checkPermission(new RuntimePermission(PERMISSION_PREFIX + "access.ufi"));
-		}
+		SecurityUtil.checkPermission(new RuntimePermission(PERMISSION_PREFIX + "access.ufi"));
 		
 		try{
 			return this.entityAcess.findByUFI(value <= 0?null : value, lang);
@@ -39,11 +36,7 @@ public class CountryRegistryImp
 
 	public Country getCountryByIsoAlpha2(String value) throws CountryRegistryException{
 		
-		SecurityManager sm = System.getSecurityManager();
-
-		if(sm != null) {
-			sm.checkPermission(new RuntimePermission(PERMISSION_PREFIX + "access.isoalpha2"));
-		}
+		SecurityUtil.checkPermission(new RuntimePermission(PERMISSION_PREFIX + "access.isoalpha2"));
 		
 		try{
 			return this.entityAcess.findByIsoAlpha2(value);
@@ -55,11 +48,7 @@ public class CountryRegistryImp
 
 	public Country getCountryByIsoAlpha3(String value) throws CountryRegistryException{
 		
-		SecurityManager sm = System.getSecurityManager();
-
-		if(sm != null) {
-			sm.checkPermission(new RuntimePermission(PERMISSION_PREFIX + "access.isoalpha3"));
-		}
+		SecurityUtil.checkPermission(new RuntimePermission(PERMISSION_PREFIX + "access.isoalpha3"));
 		
 		try{
 			return entityAcess.findByIsoAlpha3(value);
@@ -72,11 +61,7 @@ public class CountryRegistryImp
 	
 	public Country getCountry(int id) throws CountryRegistryException{
 		
-		SecurityManager sm = System.getSecurityManager();
-
-		if(sm != null) {
-			sm.checkPermission(new RuntimePermission(PERMISSION_PREFIX + "access"));
-		}
+		SecurityUtil.checkPermission(new RuntimePermission(PERMISSION_PREFIX + "access"));
 		
 		try{
 			return this.entityAcess.findById(id);
@@ -89,11 +74,7 @@ public class CountryRegistryImp
 	@Override
 	public void registerCountry(Country e) throws CountryRegistryException {
 		
-		SecurityManager sm = System.getSecurityManager();
-
-		if(sm != null) {
-			sm.checkPermission(new RuntimePermission(PERMISSION_PREFIX + "register"));
-		}
+		SecurityUtil.checkPermission(new RuntimePermission(PERMISSION_PREFIX + "register"));
 		
 		try{
 			if(e.getId() <= 0){
@@ -111,11 +92,7 @@ public class CountryRegistryImp
 	@Override
 	public void removeCountry(Country e) throws CountryRegistryException {
 		
-		SecurityManager sm = System.getSecurityManager();
-
-		if(sm != null) {
-			sm.checkPermission(new RuntimePermission(PERMISSION_PREFIX + "unregister"));
-		}
+		SecurityUtil.checkPermission(new RuntimePermission(PERMISSION_PREFIX + "unregister"));
 		
 		try{
 			this.entityAcess.delete(e);
@@ -128,11 +105,7 @@ public class CountryRegistryImp
 	@Override
 	public List<Country> getAll() throws CountryRegistryException {
 		
-		SecurityManager sm = System.getSecurityManager();
-
-		if(sm != null) {
-			sm.checkPermission(new RuntimePermission(PERMISSION_PREFIX + "access.all"));
-		}
+		SecurityUtil.checkPermission(new RuntimePermission(PERMISSION_PREFIX + "access.all"));
 		
 		try{
 			return this.entityAcess.findAll();
@@ -144,11 +117,7 @@ public class CountryRegistryImp
 
 	public List<Country> getAll(Language lang) throws CountryRegistryException{
 		
-		SecurityManager sm = System.getSecurityManager();
-
-		if(sm != null) {
-			sm.checkPermission(new RuntimePermission(PERMISSION_PREFIX + "access.language"));
-		}
+		SecurityUtil.checkPermission(new RuntimePermission(PERMISSION_PREFIX + "access.language"));
 		
 		try{
 			return this.entityAcess.findAll(lang);
@@ -160,11 +129,7 @@ public class CountryRegistryImp
 	
 	public List<Country> getAll(Locale locale) throws CountryRegistryException{
 		
-		SecurityManager sm = System.getSecurityManager();
-
-		if(sm != null) {
-			sm.checkPermission(new RuntimePermission(PERMISSION_PREFIX + "access.locale"));
-		}
+		SecurityUtil.checkPermission(new RuntimePermission(PERMISSION_PREFIX + "access.locale"));
 		
 		try{
 			return this.entityAcess.findAll(locale);

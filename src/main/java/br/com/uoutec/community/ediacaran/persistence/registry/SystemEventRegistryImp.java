@@ -8,6 +8,7 @@ import javax.inject.Singleton;
 import br.com.uoutec.community.ediacaran.persistence.entity.SystemEvent;
 import br.com.uoutec.community.ediacaran.persistence.entity.SystemEventType;
 import br.com.uoutec.community.ediacaran.persistence.entityaccess.SystemEventEntityAccess;
+import br.com.uoutec.community.ediacaran.plugins.SecurityUtil;
 
 
 @Singleton
@@ -21,11 +22,7 @@ public class SystemEventRegistryImp
 	public void registerSystemEvent(SystemEvent entity)
 			throws SystemEventRegistryException {
 		
-		SecurityManager sm = System.getSecurityManager();
-
-		if(sm != null) {
-			sm.checkPermission(new RuntimePermission(PERMISSION_PREFIX + "register"));
-		}
+		SecurityUtil.checkPermission(new RuntimePermission(PERMISSION_PREFIX + "register"));
 
 		try{
 			if(entity.getId() == null){
@@ -44,11 +41,7 @@ public class SystemEventRegistryImp
 	public void removeSystemEvent(SystemEvent entity)
 			throws SystemEventRegistryException {
 		
-		SecurityManager sm = System.getSecurityManager();
-
-		if(sm != null) {
-			sm.checkPermission(new RuntimePermission(PERMISSION_PREFIX + "unregister"));
-		}
+		SecurityUtil.checkPermission(new RuntimePermission(PERMISSION_PREFIX + "unregister"));
 		
 		try{
 			this.entityAccess.delete(entity);
@@ -62,11 +55,7 @@ public class SystemEventRegistryImp
 	public List<SystemEvent> getSystemEventByType(SystemEventType type,
 			Integer first, Integer max) throws SystemEventRegistryException {
 		
-		SecurityManager sm = System.getSecurityManager();
-
-		if(sm != null) {
-			sm.checkPermission(new RuntimePermission(PERMISSION_PREFIX + "access.type"));
-		}
+		SecurityUtil.checkPermission(new RuntimePermission(PERMISSION_PREFIX + "access.type"));
 		
 		try{
 			return this.entityAccess.getByType(type, first, max);
