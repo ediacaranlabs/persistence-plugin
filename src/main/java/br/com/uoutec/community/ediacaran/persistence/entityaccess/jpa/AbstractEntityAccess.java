@@ -13,8 +13,6 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import br.com.uoutec.community.ediacaran.persistence.entity.Country;
-import br.com.uoutec.community.ediacaran.persistence.entityaccess.jpa.entity.CountryHibernateEntity;
 import br.com.uoutec.persistence.BasicEntityAccess;
 import br.com.uoutec.persistence.EntityAccessException;
 import br.com.uoutec.persistence.EntityAccessTransaction;
