@@ -12,10 +12,10 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import br.com.uoutec.community.ediacaran.persistence.entity.SystemEvent;
-import br.com.uoutec.community.ediacaran.persistence.entity.SystemEventType;
-import br.com.uoutec.community.ediacaran.persistence.entityaccess.SystemEventEntityAccess;
 import br.com.uoutec.community.ediacaran.persistence.entityaccess.jpa.entity.SystemEventHibernateEntity;
+import br.com.uoutec.community.ediacaran.system.event.SystemEvent;
+import br.com.uoutec.community.ediacaran.system.event.SystemEventEntityAccess;
+import br.com.uoutec.community.ediacaran.system.event.SystemEventType;
 import br.com.uoutec.community.ediacaran.system.util.IDGenerator;
 import br.com.uoutec.persistence.EntityAccessException;
 

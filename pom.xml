@@ -71,11 +71,6 @@
 			<version>1.0.0</version>
 		</dependency>
 -->		
-		<dependency>
-			<groupId>br.com.uoutec</groupId>
-			<artifactId>persistence</artifactId>
-			<version>1.0.0</version>
-		</dependency>
 		<!-- transaction -->
 		<dependency>
 		    <groupId>org.jboss.narayana.jta</groupId>

@@ -13,8 +13,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import br.com.uoutec.community.ediacaran.persistence.entity.SystemEvent;
-import br.com.uoutec.community.ediacaran.persistence.entity.SystemEventType;
+import br.com.uoutec.community.ediacaran.system.event.SystemEvent;
+import br.com.uoutec.community.ediacaran.system.event.SystemEventType;
 
 @Entity
 @Table(name="rw_system_event")
