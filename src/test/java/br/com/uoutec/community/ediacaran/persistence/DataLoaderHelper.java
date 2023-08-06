@@ -1,9 +1,6 @@
 package br.com.uoutec.community.ediacaran.persistence;
 
-import java.util.concurrent.Callable;
-
 import javax.persistence.EntityManager;
-import javax.transaction.Transactional;
 
 import br.com.uoutec.community.ediacaran.persistence.entity.Country;
 import br.com.uoutec.community.ediacaran.persistence.entity.Language;

@@ -58,50 +58,8 @@
 
 		<void property="pluginClassLoaderFactory">
 			<object class="br.com.uoutec.community.ediacaran.weld.tomcat.TomcatBuilderClassLoaderFactory">
-				<!--
-				<void method="addIncludePluginClassPathMatch">
-					<string>.*persistence.*</string>
-				</void>
-				-->
-				<!--
-				<void method="addIncludePluginClassPathMatch">
-					<string>.*plugin.*</string>
-				</void>
-				-->
-				<void method="addIncludePluginClassPathMatch">
-					<string>.*filter.*</string>
-				</void>
-				
-				<void method="addIncludePluginClassPathMatch">
-					<string>security</string>
-					<string>.*system-security.*</string>
-				</void>
-				
-				<void method="addIncludePluginClassPathMatch">
-					<string>system</string>
-					<string>.*system-ediacaran.*</string>
-				</void>
-
-				<void method="addIncludePluginClassPathMatch">
-					<string>persistence</string>
-					<string>.*persistence-ediacaran.*</string>
-				</void>
-				
-				<void method="addIncludePluginClassPathMatch">
-					<string>front</string>
-					<string>.*front-ediacaran.*</string>
-				</void>
-				
 			</object>
 		</void>
-		
-		<!--  
-		<void property="parentClassLoader">
-			<object class="java.net.URLClassLoader">
-				...
-			</object>
-		</void>
-		-->
 		
 		<void property="pluginsLoader">
 			<object class="br.com.uoutec.community.ediacaran.plugins.PluginsLoaderImp"/>
@@ -114,13 +72,6 @@
 					<boolean>true</boolean>
 				</void>
 			
-				<!--
-				<void method="registerVarResolver">
-					<string>teste</string>
-					<object class="br.com.uoutec.community.ediacaran.weld.VarParserImp"/>
-				</void>
-				-->
-				
 			</object>
 		</void>
 

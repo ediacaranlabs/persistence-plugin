@@ -2,14 +2,12 @@ package br.com.uoutec.community.ediacaran.core.persistence.registry;
 
 import static br.com.uoutec.community.ediacaran.persistence.DataLoaderHelper.clearData;
 import static br.com.uoutec.community.ediacaran.persistence.DataLoaderHelper.loadData;
-import static br.com.uoutec.community.ediacaran.persistence.DataLoaderHelper.registerCountryBrasilPtLang;
-import static br.com.uoutec.community.ediacaran.persistence.DataLoaderHelper.registerCountryEstadosUnidosPtLang;
-import static br.com.uoutec.community.ediacaran.persistence.DataLoaderHelper.registerLangPt;
 import static br.com.uoutec.community.ediacaran.persistence.DataLoaderHelper.registerLangEn;
-import static br.com.uoutec.community.ediacaran.persistence.DataLoaderHelper.registerRegionAmericaDoNortePt;
+import static br.com.uoutec.community.ediacaran.persistence.DataLoaderHelper.registerLangPt;
 import static br.com.uoutec.community.ediacaran.persistence.DataLoaderHelper.registerRegionAmericaDoNorteEn;
-import static br.com.uoutec.community.ediacaran.persistence.DataLoaderHelper.registerRegionAmericaDoSulPt;
+import static br.com.uoutec.community.ediacaran.persistence.DataLoaderHelper.registerRegionAmericaDoNortePt;
 import static br.com.uoutec.community.ediacaran.persistence.DataLoaderHelper.registerRegionAmericaDoSulEn;
+import static br.com.uoutec.community.ediacaran.persistence.DataLoaderHelper.registerRegionAmericaDoSulPt;
 
 import java.util.List;
 import java.util.Locale;
@@ -35,9 +33,6 @@ import br.com.uoutec.community.ediacaran.test.PluginContext;
 	@ApplicationConfigParameterTest(paramName="security_plugins_path", paramValue="ediacaran/test/br/com/uoutec/community/ediacaran/core/persistence/registry/regionregistrytest/config"),
 	@ApplicationConfigParameterTest(paramName="app_policy_path", paramValue="ediacaran/test/br/com/uoutec/community/ediacaran/core/persistence/registry/regionregistrytest/run.policy"),
 	@ApplicationConfigParameterTest(paramName="plugins_path", paramValue="ediacaran/test/br/com/uoutec/community/ediacaran/core/persistence/registry/regionregistrytest/plugins"),
-	@ApplicationConfigParameterTest(paramName="default", paramValue="classpath:META-INF/ediacaran-test.properties"),
-	@ApplicationConfigParameterTest(paramName="logger", paramValue="classpath:META-INF/log4j.configuration"),
-	@ApplicationConfigParameterTest(paramName="path", paramValue="../../../ediacaran-base-test")
 })
 public class RegionRegistryTest {
 

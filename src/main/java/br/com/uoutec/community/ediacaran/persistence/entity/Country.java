@@ -5,9 +5,6 @@ import java.util.Locale;
 
 import javax.annotation.Generated;
 
-import br.com.uoutec.community.ediacaran.persistence.entity.Language;
-import br.com.uoutec.community.ediacaran.persistence.entity.Region;
-
 public class Country implements Serializable{
 
 	private static final long serialVersionUID = 1111966468404063L;
