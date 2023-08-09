@@ -14,13 +14,13 @@ import javax.persistence.spi.PersistenceUnitInfo;
 import javax.persistence.spi.PersistenceUnitTransactionType;
 import javax.sql.DataSource;
 
+import br.com.uoutec.community.ediacaran.VarParser;
 import br.com.uoutec.community.ediacaran.persistence.Constants;
-import br.com.uoutec.community.ediacaran.plugins.PluginConfiguration;
 import br.com.uoutec.community.ediacaran.plugins.PluginException;
 
 public class PersistenceUnitInfoImp implements PersistenceUnitInfo {
 
-	private PluginConfiguration config;
+	private VarParser varParser;
 
 	private String unitName;
 	
@@ -30,16 +30,21 @@ public class PersistenceUnitInfoImp implements PersistenceUnitInfo {
 	
 	private List<String> managedClassNames;
 	
-	public PersistenceUnitInfoImp(PluginConfiguration config, 
+	public PersistenceUnitInfoImp(VarParser varParser, 
 			String unitName, List<String> managedClassNames, 
 			DataSource jtaDataSource, DataSource dataSource) {
-		this.config = config;
+		this.varParser = varParser;
 		this.unitName = unitName;
 		this.jtaDataSource = jtaDataSource;
 		this.dataSource = dataSource;
 		this.managedClassNames = managedClassNames;
 	}
-	
+
+	private String getProperty(String name) {
+		return varParser.getValue(
+				String.format("${plugins.%s.%s.%s}", Constants.PROVIDER, Constants.PLUGIN, name)
+		);
+	}
 	@Override
 	public String getPersistenceUnitName() {
 		return unitName;
@@ -47,12 +52,12 @@ public class PersistenceUnitInfoImp implements PersistenceUnitInfo {
 
 	@Override
 	public String getPersistenceProviderClassName() {
-		return config.getString(Constants.PERSISTENCE_PROVIDER_CLASS_NAME);
+		return getProperty(Constants.PERSISTENCE_PROVIDER_CLASS_NAME);
 	}
 
 	@Override
 	public PersistenceUnitTransactionType getTransactionType() {
-		return PersistenceUnitTransactionType.valueOf(config.getString(Constants.TRANSACTION_TYPE));
+		return PersistenceUnitTransactionType.valueOf(getProperty(Constants.TRANSACTION_TYPE));
 	}
 
 	@Override
@@ -92,18 +97,18 @@ public class PersistenceUnitInfoImp implements PersistenceUnitInfo {
 
 	@Override
 	public SharedCacheMode getSharedCacheMode() {
-		return SharedCacheMode.valueOf(config.getString(Constants.SHARED_CACHE_MODE));
+		return SharedCacheMode.valueOf(getProperty(Constants.SHARED_CACHE_MODE));
 	}
 
 	@Override
 	public ValidationMode getValidationMode() {
-		return ValidationMode.valueOf(config.getString(Constants.VALIDATION_MODE));
+		return ValidationMode.valueOf(getProperty(Constants.VALIDATION_MODE));
 	}
 
 	@Override
 	public Properties getProperties() {
 		
-		String properties = config.getString(Constants.PROPERTIES);
+		String properties = getProperty(Constants.PROPERTIES);
 		
 		if(properties.trim().length() == 0) {
 			return new Properties();
