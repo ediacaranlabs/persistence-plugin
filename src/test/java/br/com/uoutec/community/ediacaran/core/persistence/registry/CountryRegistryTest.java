@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Locale;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -23,8 +24,8 @@ import br.com.uoutec.community.ediacaran.persistence.registry.RegionRegistry;
 import br.com.uoutec.community.ediacaran.test.ApplicationConfigParameterTest;
 import br.com.uoutec.community.ediacaran.test.ApplicationConfigParametersTest;
 import br.com.uoutec.community.ediacaran.test.ApplicationConfigTest;
-import br.com.uoutec.community.ediacaran.test.EdiacaranTestRunner;
 import br.com.uoutec.community.ediacaran.test.PluginContext;
+import br.com.uoutec.community.ediacaran.test.junit4.EdiacaranTestRunner;
 
 @RunWith(EdiacaranTestRunner.class)
 @ApplicationConfigTest("ediacaran/test/br/com/uoutec/community/ediacaran/core/persistence/registry/countryregistrytest/ediacaran-config.xml")
@@ -36,13 +37,17 @@ import br.com.uoutec.community.ediacaran.test.PluginContext;
 })
 public class CountryRegistryTest {
 
+	@Before
+	public void beforeTest() {
+		clearData();
+	}
+	
 	@Test
 	@PluginContext("persistence")
 	public void testRegister(
 			CountryRegistry countryRegistry, LanguageRegistry languageRegistry, 
 			RegionRegistry regionRegistry) throws Throwable {
 		
-		clearData();
 		registerLangPt();
 		registerRegionAmericaDoSulPt();
 		registerCountryBrasilPtLang();
@@ -68,7 +73,6 @@ public class CountryRegistryTest {
 	public void testFindByID(
 			CountryRegistry countryRegistry) throws Throwable {
 		
-		clearData();
 		loadData();
 		
 		Country country = countryRegistry.getCountry(1);
@@ -93,7 +97,6 @@ public class CountryRegistryTest {
 			CountryRegistry countryRegistry,
 			LanguageRegistry languageRegistry) throws Throwable {
 		
-		clearData();
 		loadData();
 		
 		Language lang = languageRegistry.getLanguageByIso6391("en");
@@ -117,7 +120,6 @@ public class CountryRegistryTest {
 			CountryRegistry countryRegistry,
 			LanguageRegistry languageRegistry) throws Throwable {
 		
-		clearData();
 		loadData();
 		
 		Country country = countryRegistry.getCountry(1);
@@ -138,7 +140,6 @@ public class CountryRegistryTest {
 			CountryRegistry countryRegistry,
 			LanguageRegistry languageRegistry) throws Throwable {
 		
-		clearData();
 		loadData();
 		
 		Country country = countryRegistry.getCountryByIsoAlpha3("BRA");
@@ -154,7 +155,6 @@ public class CountryRegistryTest {
 			CountryRegistry countryRegistry,
 			LanguageRegistry languageRegistry) throws Throwable {
 		
-		clearData();
 		loadData();
 		
 		Country country = countryRegistry.getCountryByIsoAlpha2("BR");
@@ -169,8 +169,6 @@ public class CountryRegistryTest {
 	public void testGetAll(
 			CountryRegistry countryRegistry, LanguageRegistry languageRegistry, 
 			RegionRegistry regionRegistry) throws Throwable {
-		
-		clearData();
 		
 		registerLangPt();
 		registerRegionAmericaDoSulPt();
@@ -193,7 +191,6 @@ public class CountryRegistryTest {
 			CountryRegistry countryRegistry, LanguageRegistry languageRegistry, 
 			RegionRegistry regionRegistry) throws Throwable {
 		
-		clearData();
 		loadData();
 
 		Language lang = languageRegistry.getLanguageByIso6391("pt");
@@ -210,7 +207,6 @@ public class CountryRegistryTest {
 			CountryRegistry countryRegistry, LanguageRegistry languageRegistry, 
 			RegionRegistry regionRegistry) throws Throwable {
 		
-		clearData();
 		loadData();
 
 		List<Country> list = countryRegistry.getAll(Locale.US);

@@ -18,8 +18,8 @@ import br.com.uoutec.community.ediacaran.persistence.test.TransactionCaller;
 import br.com.uoutec.community.ediacaran.test.ApplicationConfigParameterTest;
 import br.com.uoutec.community.ediacaran.test.ApplicationConfigParametersTest;
 import br.com.uoutec.community.ediacaran.test.ApplicationConfigTest;
-import br.com.uoutec.community.ediacaran.test.EdiacaranTestRunner;
 import br.com.uoutec.community.ediacaran.test.PluginContext;
+import br.com.uoutec.community.ediacaran.test.junit4.EdiacaranTestRunner;
 
 @RunWith(EdiacaranTestRunner.class)
 @ApplicationConfigTest("ediacaran/test/br/com/uoutec/community/ediacaran/core/persistence/registry/jtatransactiontest/ediacaran-config.xml")

@@ -96,14 +96,8 @@ public class DataLoaderHelper {
 	}
 
 	public static void clearData() {
-		
 		EntityManager em = EntityContextPlugin.getEntity(EntityManager.class);
 		em.createNativeQuery("TRUNCATE SCHEMA PUBLIC RESTART IDENTITY AND COMMIT NO CHECK").executeUpdate();
-		
-		if (em.getTransaction().isActive()) {
-			em.getTransaction().rollback();
-	    }
-		
 		em.clear();
 	}
 	
