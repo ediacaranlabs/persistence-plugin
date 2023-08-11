@@ -8,6 +8,7 @@ import static br.com.uoutec.community.ediacaran.persistence.DataLoaderHelper.reg
 import java.util.List;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -22,18 +23,19 @@ import br.com.uoutec.community.ediacaran.test.junit4.EdiacaranTestRunner;
 @RunWith(EdiacaranTestRunner.class)
 @ApplicationConfigTest("ediacaran/test/br/com/uoutec/community/ediacaran/core/persistence/registry/langregistrytest/ediacaran-config.xml")
 @ApplicationConfigParametersTest({
-	@ApplicationConfigParameterTest(paramName="plugins_config_path", paramValue="ediacaran/test/br/com/uoutec/community/ediacaran/core/persistence/registry/langregistrytest/config"),
-	@ApplicationConfigParameterTest(paramName="security_plugins_path", paramValue="ediacaran/test/br/com/uoutec/community/ediacaran/core/persistence/registry/langregistrytest/config"),
-	@ApplicationConfigParameterTest(paramName="app_policy_path", paramValue="ediacaran/test/br/com/uoutec/community/ediacaran/core/persistence/registry/langregistrytest/run.policy"),
 	@ApplicationConfigParameterTest(paramName="plugins_path", paramValue="ediacaran/test/br/com/uoutec/community/ediacaran/core/persistence/registry/langregistrytest/plugins"),
 })
+@PluginContext("persistence")
 public class LangRegistryTest {
 
+	@Before
+	public void beforeTest() {
+		clearData();
+	}
+	
 	@Test
-	@PluginContext("persistence")
 	public void testRegister(LanguageRegistry languageRegistry) throws Throwable {
 		
-		clearData();
 		registerLangPt();
 		
 		Language lang = languageRegistry.getLanguage(1);
@@ -48,10 +50,8 @@ public class LangRegistryTest {
 	}
 
 	@Test
-	@PluginContext("persistence")
 	public void testFindByID(LanguageRegistry languageRegistry) throws Throwable {
 		
-		clearData();
 		registerLangPt();
 		registerLangEn();
 		
@@ -67,10 +67,8 @@ public class LangRegistryTest {
 	}
 
 	@Test
-	@PluginContext("persistence")
 	public void testRemove(LanguageRegistry languageRegistry) throws Throwable {
 		
-		clearData();
 		registerLangPt();
 		registerLangEn();
 		
@@ -87,10 +85,8 @@ public class LangRegistryTest {
 	}
 
 	@Test
-	@PluginContext("persistence")
 	public void testFindByIso6391(LanguageRegistry languageRegistry) throws Throwable {
 		
-		clearData();
 		loadData();
 		
 		Language lang = languageRegistry.getLanguageByIso6391("pt");
@@ -101,10 +97,8 @@ public class LangRegistryTest {
 	}
 
 	@Test
-	@PluginContext("persistence")
 	public void testFindByIso6392t(LanguageRegistry languageRegistry) throws Throwable {
 		
-		clearData();
 		loadData();
 		
 		Language lang = languageRegistry.getLanguageByIso6392t("eng");
@@ -115,10 +109,8 @@ public class LangRegistryTest {
 	}
 
 	@Test
-	@PluginContext("persistence")
 	public void testGetAll(LanguageRegistry languageRegistry) throws Throwable {
 		
-		clearData();
 		registerLangPt();
 		registerLangEn();
 		

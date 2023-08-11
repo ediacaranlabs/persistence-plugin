@@ -30,11 +30,9 @@ import br.com.uoutec.community.ediacaran.test.junit4.EdiacaranTestRunner;
 @RunWith(EdiacaranTestRunner.class)
 @ApplicationConfigTest("ediacaran/test/br/com/uoutec/community/ediacaran/core/persistence/registry/countryregistrytest/ediacaran-config.xml")
 @ApplicationConfigParametersTest({
-	@ApplicationConfigParameterTest(paramName="plugins_config_path", paramValue="ediacaran/test/br/com/uoutec/community/ediacaran/core/persistence/registry/countryregistrytest/config"),
-	@ApplicationConfigParameterTest(paramName="security_plugins_path", paramValue="ediacaran/test/br/com/uoutec/community/ediacaran/core/persistence/registry/countryregistrytest/config"),
-	@ApplicationConfigParameterTest(paramName="app_policy_path", paramValue="ediacaran/test/br/com/uoutec/community/ediacaran/core/persistence/registry/countryregistrytest/run.policy"),
 	@ApplicationConfigParameterTest(paramName="plugins_path", paramValue="ediacaran/test/br/com/uoutec/community/ediacaran/core/persistence/registry/countryregistrytest/plugins"),
 })
+@PluginContext("persistence")
 public class CountryRegistryTest {
 
 	@Before
@@ -43,7 +41,6 @@ public class CountryRegistryTest {
 	}
 	
 	@Test
-	@PluginContext("persistence")
 	public void testRegister(
 			CountryRegistry countryRegistry, LanguageRegistry languageRegistry, 
 			RegionRegistry regionRegistry) throws Throwable {

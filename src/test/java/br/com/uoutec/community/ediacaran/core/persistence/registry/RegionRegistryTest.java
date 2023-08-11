@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Locale;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -34,13 +35,17 @@ import br.com.uoutec.community.ediacaran.test.junit4.EdiacaranTestRunner;
 	@ApplicationConfigParameterTest(paramName="app_policy_path", paramValue="ediacaran/test/br/com/uoutec/community/ediacaran/core/persistence/registry/regionregistrytest/run.policy"),
 	@ApplicationConfigParameterTest(paramName="plugins_path", paramValue="ediacaran/test/br/com/uoutec/community/ediacaran/core/persistence/registry/regionregistrytest/plugins"),
 })
+@PluginContext("persistence")
 public class RegionRegistryTest {
 
+	@Before
+	public void beforeTest() {
+		clearData();
+	}
+	
 	@Test
-	@PluginContext("persistence")
 	public void testRegister(RegionRegistry regionRegistry) throws Throwable {
 		
-		clearData();
 		registerLangPt();
 		registerRegionAmericaDoSulPt();
 		
@@ -55,10 +60,8 @@ public class RegionRegistryTest {
 	}
 
 	@Test
-	@PluginContext("persistence")
 	public void testFindByID(RegionRegistry regionRegistry) throws Throwable {
 		
-		clearData();
 		loadData();
 		
 		Region region = regionRegistry.getRegion(1);
@@ -72,10 +75,8 @@ public class RegionRegistryTest {
 	}
 
 	@Test
-	@PluginContext("persistence")
 	public void testRemove(RegionRegistry regionRegistry) throws Throwable {
 		
-		clearData();
 		loadData();
 		
 		Region region = regionRegistry.getRegion(1);
@@ -91,10 +92,7 @@ public class RegionRegistryTest {
 	}
 
 	@Test
-	@PluginContext("persistence")
 	public void testGetAll(RegionRegistry regionRegistry) throws Throwable {
-		
-		clearData();
 		
 		registerLangPt();
 		registerRegionAmericaDoSulPt();
@@ -110,11 +108,9 @@ public class RegionRegistryTest {
 	}
 
 	@Test
-	@PluginContext("persistence")
 	public void testGetAllLanguage(LanguageRegistry languageRegistry, 
 			RegionRegistry regionRegistry) throws Throwable {
 		
-		clearData();
 		registerLangPt();
 		registerLangEn();
 		registerRegionAmericaDoSulPt();
@@ -132,11 +128,9 @@ public class RegionRegistryTest {
 	}
 
 	@Test
-	@PluginContext("persistence")
 	public void testGetAllLocale(LanguageRegistry languageRegistry, 
 			RegionRegistry regionRegistry) throws Throwable {
 		
-		clearData();
 		registerLangPt();
 		registerLangEn();
 		registerRegionAmericaDoNortePt();

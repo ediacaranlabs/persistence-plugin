@@ -26,10 +26,10 @@ import br.com.uoutec.community.ediacaran.test.junit4.EdiacaranTestRunner;
 @ApplicationConfigParametersTest({
 	@ApplicationConfigParameterTest(paramName="plugins_path", paramValue="ediacaran/test/br/com/uoutec/community/ediacaran/core/persistence/registry/jtatransactiontest/plugins"),
 })
+@PluginContext("persistence")
 public class JTATransactionTest {
 
 	@Test
-	@PluginContext("persistence")
 	public void simpleTransactionTest(LanguageRegistry languageRegistry) throws Exception {
 
 		getEntity(TransactionCaller.class)
@@ -59,7 +59,6 @@ public class JTATransactionTest {
 
 	
 	@Test
-	@PluginContext("persistence")
 	public void requireTransactionTest() throws Throwable {
 		try {
 			//clearData();
