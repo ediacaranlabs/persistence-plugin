@@ -1,31 +1,21 @@
 package br.com.uoutec.community.ediacaran.persistence.entity;
 
 import java.io.Serializable;
-import javax.annotation.Generated;
 
 public class Language implements Serializable{
 
 	private static final long serialVersionUID = -7898530339550200721L;
 
-	private int id;
+	protected int id;
 
-	private String iso6391;
+	protected String iso6391;
 
-	private String iso6392t;
+	protected String iso6392t;
 	
-	private String name;
+	protected String name;
 
-	private String isoName;
+	protected String isoName;
 
-	@Generated("SparkTools")
-	private Language(Builder builder) {
-		this.id = builder.id;
-		this.iso6391 = builder.iso6391;
-		this.iso6392t = builder.iso6392t;
-		this.name = builder.name;
-		this.isoName = builder.isoName;
-	}
-	
 	public Language() {
 	}
 	
@@ -75,52 +65,6 @@ public class Language implements Serializable{
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	@Generated("SparkTools")
-	public static Builder builder() {
-		return new Builder();
-	}
-
-	@Generated("SparkTools")
-	public static final class Builder {
-		private int id;
-		private String iso6391;
-		private String iso6392t;
-		private String name;
-		private String isoName;
-
-		private Builder() {
-		}
-
-		public Builder withId(int id) {
-			this.id = id;
-			return this;
-		}
-
-		public Builder withIso6391(String iso6391) {
-			this.iso6391 = iso6391;
-			return this;
-		}
-
-		public Builder withIso6392t(String iso6392t) {
-			this.iso6392t = iso6392t;
-			return this;
-		}
-
-		public Builder withName(String name) {
-			this.name = name;
-			return this;
-		}
-
-		public Builder withIsoName(String isoName) {
-			this.isoName = isoName;
-			return this;
-		}
-
-		public Language build() {
-			return new Language(this);
-		}
 	}
 	
 }
