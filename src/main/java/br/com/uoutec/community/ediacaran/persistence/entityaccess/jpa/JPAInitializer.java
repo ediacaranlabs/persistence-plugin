@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Disposes;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
@@ -31,13 +32,13 @@ public class JPAInitializer {
 	
 	private static final Logger logger = LoggerFactory.getLogger(JPAInitializer.class);
 	
-	private EntityManager entityManager;
-	
 	@Inject
 	private PluginType pluginData;
 	
 	@Inject
 	private VarParser varParser;
+	
+	private EntityManagerFactory emf;
 	
 	public void close(@Disposes EntityManager entityManager) {
 		entityManager.close();
@@ -48,11 +49,11 @@ public class JPAInitializer {
 
 	@SuppressWarnings("unchecked")
 	@Produces
-	@Singleton
+	@RequestScoped
 	public EntityManager createSessionFactory() throws Throwable {
 
-		if(entityManager != null) {
-			return entityManager;
+		if(emf != null) {
+			return emf.createEntityManager();
 		}
 		
 		if(logger.isTraceEnabled()) {
@@ -118,15 +119,15 @@ public class JPAInitializer {
 		
 		PersistenceUnitInfo pui = 
 				new PersistenceUnitInfoImp(varParser, 
-						"default", 
+						"default-" + pluginData.getConfiguration().getMetadata().getCode(),
 						managedClass, 
 						(DataSource)jtaDataSource, 
 						(DataSource)dataSource);
 		
-		EntityManagerFactory emf = 
+		this.emf = 
 				new HibernatePersistenceProvider()
 				.createContainerEntityManagerFactory(pui, new HashMap<Object,Object>());
-		
+
 		return emf.createEntityManager();
 	}
 
