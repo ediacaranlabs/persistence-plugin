@@ -32,13 +32,17 @@ public class JPAInitializer {
 	
 	private static final Logger logger = LoggerFactory.getLogger(JPAInitializer.class);
 	
-	@Inject
 	private PluginType pluginData;
 	
-	@Inject
 	private VarParser varParser;
 	
 	private EntityManagerFactory emf;
+
+	@Inject
+	public JPAInitializer(PluginType pluginData,VarParser varParser) {
+		this.pluginData = pluginData;
+		this.varParser = varParser;
+	}
 	
 	public void close(@Disposes EntityManager entityManager) {
 		entityManager.close();
