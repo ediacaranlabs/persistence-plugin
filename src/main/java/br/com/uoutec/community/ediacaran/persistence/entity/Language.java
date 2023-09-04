@@ -2,18 +2,36 @@ package br.com.uoutec.community.ediacaran.persistence.entity;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import br.com.uoutec.application.validation.CommonValidation;
+import br.com.uoutec.entity.registry.DataValidation;
+import br.com.uoutec.entity.registry.IdValidation;
+
 public class Language implements Serializable{
 
 	private static final long serialVersionUID = -7898530339550200721L;
 
+	@Min(value=1, groups = IdValidation.class)
 	protected int id;
 
+	@NotNull(groups={DataValidation.class})
+	@Size(min=2,max=12, groups={DataValidation.class})
 	protected String iso6391;
 
+	@NotNull(groups={DataValidation.class})
+	@Size(min=2,max=12, groups={DataValidation.class})
 	protected String iso6392t;
 	
+	@NotNull(groups={DataValidation.class})
+	@Pattern(regexp=CommonValidation.NAME_FORMAT, groups={DataValidation.class})
 	protected String name;
 
+	@NotNull(groups={DataValidation.class})
+	@Pattern(regexp=CommonValidation.NAME_FORMAT, groups={DataValidation.class})
 	protected String isoName;
 
 	public Language() {

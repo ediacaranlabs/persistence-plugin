@@ -3,28 +3,53 @@ package br.com.uoutec.community.ediacaran.persistence.entity;
 import java.io.Serializable;
 import java.util.Locale;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import br.com.uoutec.application.validation.CommonValidation;
+import br.com.uoutec.entity.registry.DataValidation;
+import br.com.uoutec.entity.registry.IdValidation;
+
 public class Country implements Serializable{
 
 	private static final long serialVersionUID = 1111966468404063L;
 
+	@Min(value=1, groups = IdValidation.class)
 	protected int id;
 
+	@NotNull(groups={DataValidation.class})
+	@Pattern(regexp=CommonValidation.NAME_FORMAT, groups={DataValidation.class})
 	protected String name;
 
 	protected int uni;
 
 	protected int ufi;
 	
+	@NotNull(groups={DataValidation.class})
+	@Size(min=2,max=2, groups={DataValidation.class})
 	protected String isoAlpha2;
 
+	@NotNull(groups={DataValidation.class})
+	@Size(min=2,max=2, groups={DataValidation.class})
 	protected String isoAlpha3;
 
+	@NotNull(groups={DataValidation.class})
+	@Size(min=2,max=6, groups={DataValidation.class})
 	protected String tld;
 
+	@NotNull(groups={DataValidation.class})
+	@Size(min=2,max=6, groups={DataValidation.class})
 	protected String iso4217;
 
+	@Valid
+	@NotNull(groups={DataValidation.class})
 	protected Language language;
 	
+	@Valid
+	@NotNull(groups={DataValidation.class})
 	protected Region region;
 
 	public Country() {
