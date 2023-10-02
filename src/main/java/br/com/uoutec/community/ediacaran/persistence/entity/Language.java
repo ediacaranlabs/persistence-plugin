@@ -10,8 +10,9 @@ import javax.validation.constraints.Size;
 import br.com.uoutec.application.validation.CommonValidation;
 import br.com.uoutec.entity.registry.DataValidation;
 import br.com.uoutec.entity.registry.IdValidation;
+import br.com.uoutec.entity.registry.ParentEntity;
 
-public class Language implements Serializable{
+public class Language implements Serializable, ParentEntity{
 
 	private static final long serialVersionUID = -7898530339550200721L;
 
@@ -83,6 +84,11 @@ public class Language implements Serializable{
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	@Override
+	public boolean isValidParent() {
+		return this.id > 0;
 	}
 	
 }

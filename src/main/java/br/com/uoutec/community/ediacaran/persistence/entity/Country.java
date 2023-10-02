@@ -3,7 +3,6 @@ package br.com.uoutec.community.ediacaran.persistence.entity;
 import java.io.Serializable;
 import java.util.Locale;
 
-import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -12,8 +11,10 @@ import javax.validation.constraints.Size;
 import br.com.uoutec.application.validation.CommonValidation;
 import br.com.uoutec.entity.registry.DataValidation;
 import br.com.uoutec.entity.registry.IdValidation;
+import br.com.uoutec.entity.registry.Parent;
+import br.com.uoutec.entity.registry.ParentEntity;
 
-public class Country implements Serializable{
+public class Country implements Serializable, ParentEntity{
 
 	private static final long serialVersionUID = 1111966468404063L;
 
@@ -44,12 +45,12 @@ public class Country implements Serializable{
 	@Size(min=2,max=6, groups={DataValidation.class})
 	protected String iso4217;
 
-	@Valid
 	@NotNull(groups={DataValidation.class})
+	@Parent(groups={DataValidation.class})
 	protected Language language;
 	
-	@Valid
 	@NotNull(groups={DataValidation.class})
+	@Parent(groups={DataValidation.class})
 	protected Region region;
 
 	public Country() {
@@ -151,6 +152,11 @@ public class Country implements Serializable{
 	
 	public Locale getLocale(){
 		return new Locale(this.language.getIso6391(), this.isoAlpha2);
+	}
+
+	@Override
+	public boolean isValidParent() {
+		return this.id > 0;
 	}
 
 }

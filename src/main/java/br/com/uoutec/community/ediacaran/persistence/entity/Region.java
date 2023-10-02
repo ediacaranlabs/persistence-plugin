@@ -2,7 +2,6 @@ package br.com.uoutec.community.ediacaran.persistence.entity;
 
 import java.io.Serializable;
 
-import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -11,8 +10,10 @@ import javax.validation.constraints.Size;
 import br.com.uoutec.application.validation.CommonValidation;
 import br.com.uoutec.entity.registry.DataValidation;
 import br.com.uoutec.entity.registry.IdValidation;
+import br.com.uoutec.entity.registry.Parent;
+import br.com.uoutec.entity.registry.ParentEntity;
 
-public class Region implements Serializable{
+public class Region implements Serializable, ParentEntity{
 
 	private static final long serialVersionUID = -5628222195056787786L;
 
@@ -25,8 +26,8 @@ public class Region implements Serializable{
 	@Pattern(regexp=CommonValidation.NAME_FORMAT, groups={DataValidation.class})
 	protected String name;
 
-	@NotNull
-	@Valid
+	@NotNull(groups={DataValidation.class})
+	@Parent(groups={DataValidation.class})
 	protected Language language;
 
 	@NotNull(groups={DataValidation.class})
@@ -82,6 +83,11 @@ public class Region implements Serializable{
 
 	public void setAlphabet(String alphabet) {
 		this.alphabet = alphabet;
+	}
+
+	@Override
+	public boolean isValidParent() {
+		return this.id > 0;
 	}
 	
 }
