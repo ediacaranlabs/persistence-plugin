@@ -3,7 +3,7 @@ package br.com.uoutec.community.ediacaran.persistence.registry;
 import java.util.List;
 
 import br.com.uoutec.community.ediacaran.persistence.entity.Language;
-import br.com.uoutec.community.ediacaran.plugins.PublicBean;
+import br.com.uoutec.ediacaran.core.plugins.PublicBean;
 import br.com.uoutec.entity.registry.Registry;
 
 public interface LanguageRegistry extends Registry, PublicBean{

@@ -1,6 +1,6 @@
 package br.com.uoutec.community.ediacaran.persistence;
 
-import br.com.uoutec.community.ediacaran.AbstractPlugin;
+import br.com.uoutec.ediacaran.core.AbstractPlugin;
 
 public class PluginInstaller 
 	extends AbstractPlugin {

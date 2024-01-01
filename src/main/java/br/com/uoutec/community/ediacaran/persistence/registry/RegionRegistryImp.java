@@ -7,10 +7,11 @@ import javax.enterprise.inject.Default;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import br.com.uoutec.application.security.ContextSystemSecurityCheck;
+import br.com.uoutec.application.security.RuntimeSecurityPermission;
 import br.com.uoutec.community.ediacaran.persistence.entity.Language;
 import br.com.uoutec.community.ediacaran.persistence.entity.Region;
 import br.com.uoutec.community.ediacaran.persistence.entityaccess.RegionEntityAccess;
-import br.com.uoutec.community.ediacaran.plugins.SecurityUtil;
 import br.com.uoutec.entity.registry.AbstractRegistry;
 
 @Singleton
@@ -24,7 +25,7 @@ public class RegionRegistryImp
 	
 	public Region getRegion(int id) throws RegionRegistryException{
 		
-		SecurityUtil.checkPermission(new RuntimePermission(PERMISSION_PREFIX + "access"));
+		ContextSystemSecurityCheck.checkPermission(new RuntimeSecurityPermission(PERMISSION_PREFIX + "access"));
 		
 		try{
 			return this.entityAcess.findById(id);
@@ -37,7 +38,7 @@ public class RegionRegistryImp
 	@Override
 	public void registerRegion(Region e) throws RegionRegistryException {
 		
-		SecurityUtil.checkPermission(new RuntimePermission(PERMISSION_PREFIX + "register"));
+		ContextSystemSecurityCheck.checkPermission(new RuntimeSecurityPermission(PERMISSION_PREFIX + "register"));
 		
 		try{
 			if(e.getId() <= 0){
@@ -55,7 +56,7 @@ public class RegionRegistryImp
 	@Override
 	public void removeRegion(Region e) throws RegionRegistryException {
 		
-		SecurityUtil.checkPermission(new RuntimePermission(PERMISSION_PREFIX + "unregister"));
+		ContextSystemSecurityCheck.checkPermission(new RuntimeSecurityPermission(PERMISSION_PREFIX + "unregister"));
 		
 		try{
 			this.entityAcess.delete(e);
@@ -68,7 +69,7 @@ public class RegionRegistryImp
 	@Override
 	public List<Region> getAll() throws RegionRegistryException {
 		
-		SecurityUtil.checkPermission(new RuntimePermission(PERMISSION_PREFIX + "access.all"));
+		ContextSystemSecurityCheck.checkPermission(new RuntimeSecurityPermission(PERMISSION_PREFIX + "access.all"));
 		
 		try{
 			return this.entityAcess.findAll();
@@ -80,7 +81,7 @@ public class RegionRegistryImp
 
 	public List<Region> getAll(Language lang) throws RegionRegistryException{
 		
-		SecurityUtil.checkPermission(new RuntimePermission(PERMISSION_PREFIX + "access.language"));
+		ContextSystemSecurityCheck.checkPermission(new RuntimeSecurityPermission(PERMISSION_PREFIX + "access.language"));
 		
 		try{
 			return this.entityAcess.findAll(lang);
@@ -92,7 +93,7 @@ public class RegionRegistryImp
 	
 	public List<Region> getAll(Locale locale) throws RegionRegistryException{
 		
-		SecurityUtil.checkPermission(new RuntimePermission(PERMISSION_PREFIX + "access.locale"));
+		ContextSystemSecurityCheck.checkPermission(new RuntimeSecurityPermission(PERMISSION_PREFIX + "access.locale"));
 		
 		try{
 			return this.entityAcess.findAll(locale);

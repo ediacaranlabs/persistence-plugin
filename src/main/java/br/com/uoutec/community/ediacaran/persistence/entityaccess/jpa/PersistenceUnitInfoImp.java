@@ -14,9 +14,9 @@ import javax.persistence.spi.PersistenceUnitInfo;
 import javax.persistence.spi.PersistenceUnitTransactionType;
 import javax.sql.DataSource;
 
-import br.com.uoutec.community.ediacaran.VarParser;
 import br.com.uoutec.community.ediacaran.persistence.Constants;
-import br.com.uoutec.community.ediacaran.plugins.PluginException;
+import br.com.uoutec.ediacaran.core.VarParser;
+import br.com.uoutec.ediacaran.core.plugins.PluginException;
 
 public class PersistenceUnitInfoImp implements PersistenceUnitInfo {
 

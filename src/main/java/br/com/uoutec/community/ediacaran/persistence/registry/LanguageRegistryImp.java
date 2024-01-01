@@ -6,9 +6,10 @@ import javax.enterprise.inject.Default;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import br.com.uoutec.application.security.ContextSystemSecurityCheck;
+import br.com.uoutec.application.security.RuntimeSecurityPermission;
 import br.com.uoutec.community.ediacaran.persistence.entity.Language;
 import br.com.uoutec.community.ediacaran.persistence.entityaccess.LanguageEntityAccess;
-import br.com.uoutec.community.ediacaran.plugins.SecurityUtil;
 
 @Singleton
 @Default
@@ -21,7 +22,7 @@ public class LanguageRegistryImp
 	@Override
 	public void registerLanguage(Language e) throws LanguageRegistryException {
 		
-		SecurityUtil.checkPermission(new RuntimePermission(PERMISSION_PREFIX + "register"));
+		ContextSystemSecurityCheck.checkPermission(new RuntimeSecurityPermission(PERMISSION_PREFIX + "register"));
 		
 		try{
 			if(e.getId() <=0 ){
@@ -40,7 +41,7 @@ public class LanguageRegistryImp
 	@Override
 	public void removeLanguage(Language e) throws LanguageRegistryException {
 		
-		SecurityUtil.checkPermission(new RuntimePermission(PERMISSION_PREFIX + "unregister"));
+		ContextSystemSecurityCheck.checkPermission(new RuntimeSecurityPermission(PERMISSION_PREFIX + "unregister"));
 		
 		try{
 			this.entityAccess.delete(e);
@@ -53,7 +54,7 @@ public class LanguageRegistryImp
 	@Override
 	public Language getLanguage(int id) throws LanguageRegistryException {
 		
-		SecurityUtil.checkPermission(new RuntimePermission(PERMISSION_PREFIX + "access"));
+		ContextSystemSecurityCheck.checkPermission(new RuntimeSecurityPermission(PERMISSION_PREFIX + "access"));
 		
 		try{
 			return this.entityAccess.findById(id);
@@ -67,7 +68,7 @@ public class LanguageRegistryImp
 	public Language getLanguageByIso6391(String value)
 			throws LanguageRegistryException {
 		
-		SecurityUtil.checkPermission(new RuntimePermission(PERMISSION_PREFIX + "access.iso6391"));
+		ContextSystemSecurityCheck.checkPermission(new RuntimeSecurityPermission(PERMISSION_PREFIX + "access.iso6391"));
 		
 		try{
 			return this.entityAccess.getLanguageByIso6391(value);
@@ -81,7 +82,7 @@ public class LanguageRegistryImp
 	public Language getLanguageByIso6392t(String value)
 			throws LanguageRegistryException {
 		
-		SecurityUtil.checkPermission(new RuntimePermission(PERMISSION_PREFIX + "access.iso6392t"));
+		ContextSystemSecurityCheck.checkPermission(new RuntimeSecurityPermission(PERMISSION_PREFIX + "access.iso6392t"));
 		
 		try{
 			return this.entityAccess.getLanguageByIso6392t(value);
@@ -94,7 +95,7 @@ public class LanguageRegistryImp
 	@Override
 	public List<Language> getAll() throws LanguageRegistryException {
 		
-		SecurityUtil.checkPermission(new RuntimePermission(PERMISSION_PREFIX + "access.all"));
+		ContextSystemSecurityCheck.checkPermission(new RuntimeSecurityPermission(PERMISSION_PREFIX + "access.all"));
 		
 		try{
 			return this.entityAccess.findAll();

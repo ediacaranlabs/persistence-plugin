@@ -11,7 +11,7 @@ import br.com.uoutec.community.ediacaran.persistence.registry.LanguageRegistry;
 import br.com.uoutec.community.ediacaran.persistence.registry.LanguageRegistryException;
 import br.com.uoutec.community.ediacaran.persistence.registry.RegionRegistry;
 import br.com.uoutec.community.ediacaran.persistence.registry.RegionRegistryException;
-import br.com.uoutec.community.ediacaran.plugins.EntityContextPlugin;
+import br.com.uoutec.ediacaran.core.plugins.EntityContextPlugin;
 
 public class DataLoaderHelper {
 

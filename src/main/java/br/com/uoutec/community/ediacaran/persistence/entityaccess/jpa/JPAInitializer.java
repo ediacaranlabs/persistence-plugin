@@ -22,10 +22,10 @@ import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import br.com.uoutec.community.ediacaran.ResourceRegistry;
-import br.com.uoutec.community.ediacaran.VarParser;
 import br.com.uoutec.community.ediacaran.persistence.Constants;
-import br.com.uoutec.community.ediacaran.plugins.PluginType;
+import br.com.uoutec.ediacaran.core.ResourceRegistry;
+import br.com.uoutec.ediacaran.core.VarParser;
+import br.com.uoutec.ediacaran.core.plugins.PluginType;
 
 @Singleton
 public class JPAInitializer {
