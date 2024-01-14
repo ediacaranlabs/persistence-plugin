@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>br.com.uoutec</groupId>
@@ -38,7 +39,7 @@
 						</configuration>
 					</execution>
 				</executions>
-			</plugin>			
+			</plugin>
 		</plugins>
 	</build>
 	<dependencies>
@@ -58,25 +59,32 @@
 		</dependency>
 		<!-- dependencies -->
 		<!-- persistence -->
+		<!-- hibernate -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
 			<version>5.6.5.Final</version>
 			<scope>provided</scope>
 		</dependency>
-<!--		
+		<!--		
  		<dependency>
 			<groupId>br.com.uoutec</groupId>
 			<artifactId>persistence-hibernate</artifactId>
 			<version>1.0.0</version>
 		</dependency>
--->		
+-->
 		<!-- transaction -->
 		<dependency>
-		    <groupId>org.jboss.narayana.jta</groupId>
-		    <artifactId>cdi</artifactId>
-		    <version>5.10.5.Final</version>
+			<groupId>org.jboss.narayana.jta</groupId>
+			<artifactId>cdi</artifactId>
+			<version>5.10.5.Final</version>
 		</dependency>
+		<dependency>
+			<groupId>org.jboss</groupId>
+			<artifactId>jboss-transaction-spi</artifactId>
+			<version>8.0.0.Final</version>
+		</dependency>
+		<!--
 		<dependency>
 			<groupId>org.jboss.narayana.jta</groupId>
 			<artifactId>narayana-jta</artifactId>
@@ -86,17 +94,57 @@
 					<groupId>org.jboss.logmanager</groupId>
 					<artifactId>jboss-logmanager</artifactId>
 				</exclusion>
+				<exclusion>
+					<groupId>jakarta.ejb</groupId>
+					<artifactId>jakarta.ejb-api</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>jakarta.transaction</groupId>
+					<artifactId>jakarta.transaction-api</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>jakarta.resource</groupId>
+					<artifactId>jakarta.resource-api</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>jakarta.el</groupId>
+					<artifactId>jakarta.el-api</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>jakarta.enterprise</groupId>
+					<artifactId>jakarta.enterprise.cdi-api</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>jakarta.enterprise</groupId>
+					<artifactId>
+						jakarta.enterprise.lang-model
+					</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>jakarta.inject</groupId>
+					<artifactId>jakarta.inject-api</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>jakarta.interceptor</groupId>
+					<artifactId>jakarta.interceptor-api</artifactId>
+				</exclusion>
 			</exclusions>
 		</dependency>
-		<dependency>
-		    <groupId>org.jboss</groupId>
-		    <artifactId>jboss-transaction-spi</artifactId>
-		    <version>8.0.0.Final</version>
-		</dependency>
+		-->
 		<dependency>
 			<groupId>org.jboss</groupId>
-			<artifactId>jandex</artifactId>
-			<version>2.0.5.Final</version>
+			<artifactId>jboss-transaction-spi</artifactId>
+			<version>8.0.0.Final</version>
+			<exclusions>
+				<exclusion>
+					<groupId>jakarta.transaction</groupId>
+					<artifactId>jakarta.transaction-api</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>jakarta.resource</groupId>
+					<artifactId>jakarta.resource-api</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<!--
 		<dependency>
@@ -112,29 +160,37 @@
 			<version>1.0.0</version>
 			<scope>provided</scope>
 		</dependency>
+		<!-- uoutec -->
 		<dependency>
 			<groupId>br.com.uoutec</groupId>
 			<artifactId>application-se</artifactId>
 			<version>1.0.0</version>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
-		    <groupId>org.hibernate</groupId>
-		    <artifactId>hibernate-core</artifactId>
-		    <version>5.4.33.Final</version>
-   			<scope>provided</scope>
-		</dependency>
+		<!-- weld -->
 		<dependency>
 			<groupId>org.jboss.weld.se</groupId>
 			<artifactId>weld-se</artifactId>
 			<version>2.4.8.Final</version>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.jboss</groupId>
+			<artifactId>jandex</artifactId>
+			<version>2.0.5.Final</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jboss.weld.servlet</groupId>
+			<artifactId>weld-servlet</artifactId>
+			<version>2.4.8.Final</version>
+			<scope>provided</scope>
+		</dependency>
 		<!--  Test -->
-   		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.9</version>
+		<dependency>
+			<groupId>br.com.uoutec</groupId>
+			<artifactId>ediacaran-weld</artifactId>
+			<version>1.0.0</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -145,14 +201,32 @@
 		</dependency>
 		<dependency>
 			<groupId>br.com.uoutec</groupId>
-			<artifactId>ediacaran-weld</artifactId>
+			<artifactId>ediacaran-junit-mock</artifactId>
 			<version>1.0.0</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-		    <groupId>org.hsqldb</groupId>
-		    <artifactId>hsqldb</artifactId>
-		    <version>2.5.2</version>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>5.4.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<version>5.8.2</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>5.8.2</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.hsqldb</groupId>
+			<artifactId>hsqldb</artifactId>
+			<version>2.5.2</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

@@ -8,15 +8,18 @@ import static br.com.uoutec.community.ediacaran.persistence.DataLoaderHelper.reg
 import static br.com.uoutec.community.ediacaran.persistence.DataLoaderHelper.registerRegionAmericaDoNortePt;
 import static br.com.uoutec.community.ediacaran.persistence.DataLoaderHelper.registerRegionAmericaDoSulEn;
 import static br.com.uoutec.community.ediacaran.persistence.DataLoaderHelper.registerRegionAmericaDoSulPt;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.List;
 import java.util.Locale;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
+import br.com.uoutec.application.junit.JunitRunner;
 import br.com.uoutec.community.ediacaran.persistence.entity.Language;
 import br.com.uoutec.community.ediacaran.persistence.entity.Region;
 import br.com.uoutec.community.ediacaran.persistence.registry.LanguageRegistry;
@@ -25,9 +28,8 @@ import br.com.uoutec.ediacaran.junit.ApplicationConfigParameterTest;
 import br.com.uoutec.ediacaran.junit.ApplicationConfigParametersTest;
 import br.com.uoutec.ediacaran.junit.ApplicationConfigTest;
 import br.com.uoutec.ediacaran.junit.PluginContext;
-import br.com.uoutec.ediacaran.junit.junit4.EdiacaranTestRunner;
 
-@RunWith(EdiacaranTestRunner.class)
+@ExtendWith(JunitRunner.class)
 @ApplicationConfigTest("ediacaran/test/br/com/uoutec/community/ediacaran/core/persistence/registry/regionregistrytest/ediacaran-config.xml")
 @ApplicationConfigParametersTest({
 	@ApplicationConfigParameterTest(paramName="plugins_config_path", paramValue="ediacaran/test/br/com/uoutec/community/ediacaran/core/persistence/registry/regionregistrytest/config"),
@@ -38,7 +40,7 @@ import br.com.uoutec.ediacaran.junit.junit4.EdiacaranTestRunner;
 @PluginContext("persistence")
 public class RegionRegistryTest {
 
-	@Before
+	@BeforeEach
 	public void beforeTest() {
 		clearData();
 	}
@@ -51,11 +53,11 @@ public class RegionRegistryTest {
 		
 		Region region = regionRegistry.getRegion(1);
 
-		Assert.assertNotNull(region);
-		Assert.assertEquals(1, region.getId());
-		Assert.assertEquals("América do Sul", region.getName());
-		Assert.assertEquals(0, region.getParent());
-		Assert.assertEquals(1, region.getLanguage().getId());
+		assertNotNull(region);
+		assertEquals(1, region.getId());
+		assertEquals("América do Sul", region.getName());
+		assertEquals(0, region.getParent());
+		assertEquals(1, region.getLanguage().getId());
 
 	}
 
@@ -66,11 +68,11 @@ public class RegionRegistryTest {
 		
 		Region region = regionRegistry.getRegion(1);
 
-		Assert.assertNotNull(region);
-		Assert.assertEquals(1, region.getId());
-		Assert.assertEquals("América do Sul", region.getName());
-		Assert.assertEquals(0, region.getParent());
-		Assert.assertEquals(1, region.getLanguage().getId());
+		assertNotNull(region);
+		assertEquals(1, region.getId());
+		assertEquals("América do Sul", region.getName());
+		assertEquals(0, region.getParent());
+		assertEquals(1, region.getLanguage().getId());
 
 	}
 
@@ -80,13 +82,13 @@ public class RegionRegistryTest {
 		loadData();
 		
 		Region region = regionRegistry.getRegion(1);
-		Assert.assertNotNull(region);
-		Assert.assertEquals(1, region.getId());
+		assertNotNull(region);
+		assertEquals(1, region.getId());
 		
 		regionRegistry.removeRegion(region);
 
 		region = regionRegistry.getRegion(1);
-		Assert.assertNull(region);
+		assertNull(region);
 		
 		
 	}
@@ -100,11 +102,11 @@ public class RegionRegistryTest {
 		
 		List<Region> list = regionRegistry.getAll();
 		
-		Assert.assertNotNull(list);
-		Assert.assertEquals(2, list.size());
+		assertNotNull(list);
+		assertEquals(2, list.size());
 
-		Assert.assertEquals("América do Sul", list.get(0).getName());
-		Assert.assertEquals("América do Norte", list.get(1).getName());
+		assertEquals("América do Sul", list.get(0).getName());
+		assertEquals("América do Norte", list.get(1).getName());
 	}
 
 	@Test
@@ -121,10 +123,10 @@ public class RegionRegistryTest {
 		Language lang = languageRegistry.getLanguageByIso6391("pt");
 		List<Region> list = regionRegistry.getAll(lang);
 		
-		Assert.assertNotNull(list);
-		Assert.assertEquals(2, list.size());
-		Assert.assertEquals("América do Sul", list.get(0).getName());
-		Assert.assertEquals("América do Norte", list.get(1).getName());
+		assertNotNull(list);
+		assertEquals(2, list.size());
+		assertEquals("América do Sul", list.get(0).getName());
+		assertEquals("América do Norte", list.get(1).getName());
 	}
 
 	@Test
@@ -138,9 +140,9 @@ public class RegionRegistryTest {
 
 		List<Region> list = regionRegistry.getAll(Locale.US);
 		
-		Assert.assertNotNull(list);
-		Assert.assertEquals(1, list.size());
-		Assert.assertEquals("North America", list.get(0).getName());
+		assertNotNull(list);
+		assertEquals(1, list.size());
+		assertEquals("North America", list.get(0).getName());
 	}
 	
 }

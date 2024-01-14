@@ -4,23 +4,25 @@ import static br.com.uoutec.community.ediacaran.persistence.DataLoaderHelper.cle
 import static br.com.uoutec.community.ediacaran.persistence.DataLoaderHelper.loadData;
 import static br.com.uoutec.community.ediacaran.persistence.DataLoaderHelper.registerLangEn;
 import static br.com.uoutec.community.ediacaran.persistence.DataLoaderHelper.registerLangPt;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.List;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
+import br.com.uoutec.application.junit.JunitRunner;
 import br.com.uoutec.community.ediacaran.persistence.entity.Language;
 import br.com.uoutec.community.ediacaran.persistence.registry.LanguageRegistry;
 import br.com.uoutec.ediacaran.junit.ApplicationConfigParameterTest;
 import br.com.uoutec.ediacaran.junit.ApplicationConfigParametersTest;
 import br.com.uoutec.ediacaran.junit.ApplicationConfigTest;
 import br.com.uoutec.ediacaran.junit.PluginContext;
-import br.com.uoutec.ediacaran.junit.junit4.EdiacaranTestRunner;
 
-@RunWith(EdiacaranTestRunner.class)
+@ExtendWith(JunitRunner.class)
 @ApplicationConfigTest("ediacaran/test/br/com/uoutec/community/ediacaran/core/persistence/registry/langregistrytest/ediacaran-config.xml")
 @ApplicationConfigParametersTest({
 	@ApplicationConfigParameterTest(paramName="plugins_path", paramValue="ediacaran/test/br/com/uoutec/community/ediacaran/core/persistence/registry/langregistrytest/plugins"),
@@ -28,7 +30,7 @@ import br.com.uoutec.ediacaran.junit.junit4.EdiacaranTestRunner;
 @PluginContext("persistence")
 public class LangRegistryTest {
 
-	@Before
+	@BeforeEach
 	public void beforeTest() {
 		clearData();
 	}
@@ -40,12 +42,12 @@ public class LangRegistryTest {
 		
 		Language lang = languageRegistry.getLanguage(1);
 
-		Assert.assertNotNull(lang);
-		Assert.assertEquals(1, lang.getId());
-		Assert.assertEquals("Português", lang.getName());
-		Assert.assertEquals("Portuguese", lang.getIsoName());
-		Assert.assertEquals("pt", lang.getIso6391());
-		Assert.assertEquals("por", lang.getIso6392t());
+		assertNotNull(lang);
+		assertEquals(1, lang.getId());
+		assertEquals("Português", lang.getName());
+		assertEquals("Portuguese", lang.getIsoName());
+		assertEquals("pt", lang.getIso6391());
+		assertEquals("por", lang.getIso6392t());
 
 	}
 
@@ -57,12 +59,12 @@ public class LangRegistryTest {
 		
 		Language lang = languageRegistry.getLanguage(1);
 
-		Assert.assertNotNull(lang);
-		Assert.assertEquals(1, lang.getId());
-		Assert.assertEquals("Português", lang.getName());
-		Assert.assertEquals("Portuguese", lang.getIsoName());
-		Assert.assertEquals("pt", lang.getIso6391());
-		Assert.assertEquals("por", lang.getIso6392t());
+		assertNotNull(lang);
+		assertEquals(1, lang.getId());
+		assertEquals("Português", lang.getName());
+		assertEquals("Portuguese", lang.getIsoName());
+		assertEquals("pt", lang.getIso6391());
+		assertEquals("por", lang.getIso6392t());
 
 	}
 
@@ -74,13 +76,13 @@ public class LangRegistryTest {
 		
 		Language lang = languageRegistry.getLanguage(1);
 
-		Assert.assertNotNull(lang);
-		Assert.assertEquals(1, lang.getId());
+		assertNotNull(lang);
+		assertEquals(1, lang.getId());
 		
 		languageRegistry.removeLanguage(lang);
 
 		lang = languageRegistry.getLanguage(1);
-		Assert.assertNull(lang);
+		assertNull(lang);
 		
 	}
 
@@ -91,8 +93,8 @@ public class LangRegistryTest {
 		
 		Language lang = languageRegistry.getLanguageByIso6391("pt");
 		
-		Assert.assertNotNull(lang);
-		Assert.assertEquals("pt", lang.getIso6391());
+		assertNotNull(lang);
+		assertEquals("pt", lang.getIso6391());
 
 	}
 
@@ -103,8 +105,8 @@ public class LangRegistryTest {
 		
 		Language lang = languageRegistry.getLanguageByIso6392t("eng");
 		
-		Assert.assertNotNull(lang);
-		Assert.assertEquals("eng", lang.getIso6392t());
+		assertNotNull(lang);
+		assertEquals("eng", lang.getIso6392t());
 
 	}
 
@@ -116,11 +118,11 @@ public class LangRegistryTest {
 		
 		List<Language> list = languageRegistry.getAll();
 		
-		Assert.assertNotNull(list);
-		Assert.assertEquals(2, list.size());
+		assertNotNull(list);
+		assertEquals(2, list.size());
 
-		Assert.assertEquals("pt", list.get(0).getIso6391());
-		Assert.assertEquals("en", list.get(1).getIso6391());
+		assertEquals("pt", list.get(0).getIso6391());
+		assertEquals("en", list.get(1).getIso6391());
 	}
 	
 }

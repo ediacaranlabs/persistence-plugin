@@ -7,14 +7,16 @@ import static br.com.uoutec.community.ediacaran.persistence.DataLoaderHelper.reg
 import static br.com.uoutec.community.ediacaran.persistence.DataLoaderHelper.registerLangPt;
 import static br.com.uoutec.community.ediacaran.persistence.DataLoaderHelper.registerRegionAmericaDoNortePt;
 import static br.com.uoutec.community.ediacaran.persistence.DataLoaderHelper.registerRegionAmericaDoSulPt;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.util.List;
 import java.util.Locale;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import br.com.uoutec.community.ediacaran.persistence.entity.Country;
 import br.com.uoutec.community.ediacaran.persistence.entity.Language;
@@ -25,9 +27,9 @@ import br.com.uoutec.ediacaran.junit.ApplicationConfigParameterTest;
 import br.com.uoutec.ediacaran.junit.ApplicationConfigParametersTest;
 import br.com.uoutec.ediacaran.junit.ApplicationConfigTest;
 import br.com.uoutec.ediacaran.junit.PluginContext;
-import br.com.uoutec.ediacaran.junit.junit4.EdiacaranTestRunner;
+import br.com.uoutec.ediacaran.junit.junit5.EdiacaranExt;
 
-@RunWith(EdiacaranTestRunner.class)
+@ExtendWith(EdiacaranExt.class)
 @ApplicationConfigTest("ediacaran/test/br/com/uoutec/community/ediacaran/core/persistence/registry/countryregistrytest/ediacaran-config.xml")
 @ApplicationConfigParametersTest({
 	@ApplicationConfigParameterTest(paramName="plugins_path", paramValue="ediacaran/test/br/com/uoutec/community/ediacaran/core/persistence/registry/countryregistrytest/plugins"),
@@ -35,7 +37,7 @@ import br.com.uoutec.ediacaran.junit.junit4.EdiacaranTestRunner;
 @PluginContext("persistence")
 public class CountryRegistryTest {
 
-	@Before
+	@BeforeEach
 	public void beforeTest() {
 		clearData();
 	}
@@ -51,17 +53,17 @@ public class CountryRegistryTest {
 		
 		Country country = countryRegistry.getCountry(1);
 
-		Assert.assertNotNull(country);
-		Assert.assertEquals(1, country.getId());
-		Assert.assertEquals("Brasil", country.getName());
-		Assert.assertEquals(0, country.getUfi());
-		Assert.assertEquals(1, country.getUni());
-		Assert.assertEquals("BR", country.getIsoAlpha2());
-		Assert.assertEquals("BRA", country.getIsoAlpha3());
-		Assert.assertEquals(".com.br", country.getTld());
-		Assert.assertEquals("BRL", country.getIso4217());
-		Assert.assertEquals(1, country.getLanguage().getId());
-		Assert.assertEquals(1, country.getRegion().getId());
+		assertNotNull(country);
+		assertEquals(1, country.getId());
+		assertEquals("Brasil", country.getName());
+		assertEquals(0, country.getUfi());
+		assertEquals(1, country.getUni());
+		assertEquals("BR", country.getIsoAlpha2());
+		assertEquals("BRA", country.getIsoAlpha3());
+		assertEquals(".com.br", country.getTld());
+		assertEquals("BRL", country.getIso4217());
+		assertEquals(1, country.getLanguage().getId());
+		assertEquals(1, country.getRegion().getId());
 
 	}
 
@@ -74,17 +76,17 @@ public class CountryRegistryTest {
 		
 		Country country = countryRegistry.getCountry(1);
 
-		Assert.assertNotNull(country);
-		Assert.assertEquals(1, country.getId());
-		Assert.assertEquals("Brasil", country.getName());
-		Assert.assertEquals(0, country.getUfi());
-		Assert.assertEquals(1, country.getUni());
-		Assert.assertEquals("BR", country.getIsoAlpha2());
-		Assert.assertEquals("BRA", country.getIsoAlpha3());
-		Assert.assertEquals(".com.br", country.getTld());
-		Assert.assertEquals("BRL", country.getIso4217());
-		Assert.assertEquals(1, country.getLanguage().getId());
-		Assert.assertEquals(1, country.getRegion().getId());
+		assertNotNull(country);
+		assertEquals(1, country.getId());
+		assertEquals("Brasil", country.getName());
+		assertEquals(0, country.getUfi());
+		assertEquals(1, country.getUni());
+		assertEquals("BR", country.getIsoAlpha2());
+		assertEquals("BRA", country.getIsoAlpha3());
+		assertEquals(".com.br", country.getTld());
+		assertEquals("BRL", country.getIso4217());
+		assertEquals(1, country.getLanguage().getId());
+		assertEquals(1, country.getRegion().getId());
 
 	}
 
@@ -101,13 +103,13 @@ public class CountryRegistryTest {
 		Country country = countryRegistry.getCountry(1);
 		Country engCountry = countryRegistry.getCountryByUFI(country.getUni(), lang);
 		
-		Assert.assertNotNull(country);
-		Assert.assertEquals("Brazil", engCountry.getName());
-		Assert.assertEquals(1, engCountry.getUfi());
-		Assert.assertEquals("BR", engCountry.getIsoAlpha2());
-		Assert.assertEquals("BRA", engCountry.getIsoAlpha3());
-		Assert.assertEquals(".com.br", engCountry.getTld());
-		Assert.assertEquals("BRL", engCountry.getIso4217());
+		assertNotNull(country);
+		assertEquals("Brazil", engCountry.getName());
+		assertEquals(1, engCountry.getUfi());
+		assertEquals("BR", engCountry.getIsoAlpha2());
+		assertEquals("BRA", engCountry.getIsoAlpha3());
+		assertEquals(".com.br", engCountry.getTld());
+		assertEquals("BRL", engCountry.getIso4217());
 
 	}
 
@@ -120,13 +122,13 @@ public class CountryRegistryTest {
 		loadData();
 		
 		Country country = countryRegistry.getCountry(1);
-		Assert.assertNotNull(country);
-		Assert.assertEquals(1, country.getId());
+		assertNotNull(country);
+		assertEquals(1, country.getId());
 		
 		countryRegistry.removeCountry(country);
 
 		country = countryRegistry.getCountry(1);
-		Assert.assertNull(country);
+		assertNull(country);
 		
 		
 	}
@@ -141,8 +143,8 @@ public class CountryRegistryTest {
 		
 		Country country = countryRegistry.getCountryByIsoAlpha3("BRA");
 		
-		Assert.assertNotNull(country);
-		Assert.assertEquals(1, country.getId());
+		assertNotNull(country);
+		assertEquals(1, country.getId());
 
 	}
 
@@ -156,8 +158,8 @@ public class CountryRegistryTest {
 		
 		Country country = countryRegistry.getCountryByIsoAlpha2("BR");
 		
-		Assert.assertNotNull(country);
-		Assert.assertEquals(1, country.getId());
+		assertNotNull(country);
+		assertEquals(1, country.getId());
 
 	}
 
@@ -175,11 +177,11 @@ public class CountryRegistryTest {
 		
 		List<Country> list = countryRegistry.getAll();
 		
-		Assert.assertNotNull(list);
-		Assert.assertEquals(2, list.size());
+		assertNotNull(list);
+		assertEquals(2, list.size());
 
-		Assert.assertEquals(1, list.get(0).getId());
-		Assert.assertEquals(2, list.get(1).getId());
+		assertEquals(1, list.get(0).getId());
+		assertEquals(2, list.get(1).getId());
 	}
 
 	@Test
@@ -193,9 +195,9 @@ public class CountryRegistryTest {
 		Language lang = languageRegistry.getLanguageByIso6391("pt");
 		List<Country> list = countryRegistry.getAll(lang);
 		
-		Assert.assertNotNull(list);
-		Assert.assertEquals(1, list.size());
-		Assert.assertEquals("Brasil", list.get(0).getName());
+		assertNotNull(list);
+		assertEquals(1, list.size());
+		assertEquals("Brasil", list.get(0).getName());
 	}
 
 	@Test
@@ -208,9 +210,9 @@ public class CountryRegistryTest {
 
 		List<Country> list = countryRegistry.getAll(Locale.US);
 		
-		Assert.assertNotNull(list);
-		Assert.assertEquals(1, list.size());
-		Assert.assertEquals("Brazil", list.get(0).getName());
+		assertNotNull(list);
+		assertEquals(1, list.size());
+		assertEquals("Brazil", list.get(0).getName());
 	}
 	
 }

@@ -1,43 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <java version="1.8.0_101" class="java.beans.XMLDecoder">
 
-	<object	class="br.com.uoutec.community.ediacaran.web.tomcat.TomcatServerBootstrap">
+	<object	class="br.com.uoutec.ediacaran.web.tomcat.TomcatServerBootstrap">
 	
 		<void property="listenerManager">
-			<object class="br.com.uoutec.community.ediacaran.EdiacaranListenerManagerImp">
+			<object class="br.com.uoutec.ediacaran.core.EdiacaranListenerManagerImp">
 				<void method="addListener">
-					<object class="br.com.uoutec.community.ediacaran.weld.tomcat.TomcatRegisterContainerEventListener"/>
+					<object class="br.com.uoutec.ediacaran.weld.tomcat.TomcatRegisterContainerEventListener"/>
+				</void>
+				
+				<void method="addListener">
+					<object class="br.com.uoutec.ediacaran.web.tomcat.TomcatContextListener"/>
+				</void>
+
+				<void method="addListener">
+					<object class="br.com.uoutec.ediacaran.weld.context.ActiveRequestContextBridgeListener"/>
+				</void>
+
+				<void method="addListener">
+					<object class="br.com.uoutec.ediacaran.weld.context.ActiveSessionContextBridgeListener"/>
 				</void>
 			
 				<!--				
 				<void method="addListener">
-					<object class="br.com.uoutec.community.ediacaran.ProxyEdiacaranEventListener">
+					<object class="br.com.uoutec.ediacaran.ProxyEdiacaranEventListener">
 						<void method="setEventListerClass">
-							<string>br.com.uoutec.community.ediacaran.system.WebEdiacaranListener</string>
+							<string>br.com.uoutec.ediacaran.system.WebEdiacaranListener</string>
 						</void>
 					</object>
 				</void>
 
 				<void method="addListener">
-					<object class="br.com.uoutec.community.ediacaran.ProxyEdiacaranEventListener">
+					<object class="br.com.uoutec.ediacaran.ProxyEdiacaranEventListener">
 						<void method="setEventListerClass">
-							<string>br.com.uoutec.community.ediacaran.core.system.listener.EntityInheritanceListener</string>
+							<string>br.com.uoutec.ediacaran.core.system.listener.EntityInheritanceListener</string>
 						</void>
 					</object>
 				</void>
 				
 				<void method="addListener">
-					<object class="br.com.uoutec.community.ediacaran.ProxyEdiacaranEventListener">
+					<object class="br.com.uoutec.ediacaran.ProxyEdiacaranEventListener">
 						<void method="setEventListerClass">
-							<string>br.com.uoutec.community.ediacaran.core.system.listener.LanguageListener</string>
+							<string>br.com.uoutec.ediacaran.core.system.listener.LanguageListener</string>
 						</void>
 					</object>
 				</void>
 
 				<void method="addListener">
-					<object class="br.com.uoutec.community.ediacaran.ProxyEdiacaranEventListener">
+					<object class="br.com.uoutec.ediacaran.ProxyEdiacaranEventListener">
 						<void method="setEventListerClass">
-							<string>br.com.uoutec.community.ediacaran.core.system.listener.FilterListener</string>
+							<string>br.com.uoutec.ediacaran.core.system.listener.FilterListener</string>
 						</void>
 					</object>
 				</void>
@@ -46,31 +58,348 @@
 		</void>
 
 		<void property="securityPolicyManager">
-			<object class="br.com.uoutec.community.ediacaran.SecurityPolicyManagerImp"/>
+			<object class="br.com.uoutec.ediacaran.core.SecurityPolicyManagerImp">
+			
+				<void property="policyFileWriter">
+					<object class="br.com.uoutec.ediacaran.web.WebPolicyFileWriterImp"/>
+				</void>
+				
+				<void method="addDefaultSecurityPermission">
+					<string>runtime</string>
+					<string>method.java.lang.System.arraycopy</string>
+					<string/>
+				</void>
+				
+				<void method="addDefaultSecurityPermission">
+					<string>runtime</string>
+					<string>method.java.lang.System.currentTimeMillis</string>
+					<string/>
+				</void>
+				
+				<void method="addDefaultSecurityPermission">
+					<string>runtime</string>
+					<string>method.java.lang.Thread.currentThread</string>
+					<string/>
+				</void>
+				
+				<void method="addDefaultSecurityPermission">
+					<string>runtime</string>
+					<string>method.java.lang.Thread.getId</string>
+					<string/>
+				</void>
+				
+				<void method="addDefaultSecurityPermission">
+					<string>runtime</string>
+					<string>method.java.lang.reflect.Type.*</string>
+					<string/>
+				</void>
+
+				<void method="addDefaultSecurityPermission">
+					<string>runtime</string>
+					<string>method.java.lang.reflect.InvocationTargetException.*</string>
+					<string/>
+				</void>
+
+				<void method="addDefaultSecurityPermission">
+					<string>runtime</string>
+					<string>method.java.lang.reflect.ReflectPermission.*</string>
+					<string/>
+				</void>
+
+				<void method="addDefaultSecurityPermission">
+					<string>runtime</string>
+					<string>method.java.net.SocketPermission.*</string>
+					<string/>
+				</void>
+
+				<void method="addDefaultSecurityPermission">
+					<string>runtime</string>
+					<string>method.java.net.InetAddress.*</string>
+					<string/>
+				</void>
+
+				<void method="addDefaultSecurityPermission">
+					<string>runtime</string>
+					<string>method.java.net.Inet4Address.*</string>
+					<string/>
+				</void>
+
+				<void method="addDefaultSecurityPermission">
+					<string>runtime</string>
+					<string>method.java.net.Inet6Address.*</string>
+					<string/>
+				</void>
+
+				<void method="addDefaultSecurityPermission">
+					<string>runtime</string>
+					<string>method.java.net.URISyntaxException.*</string>
+					<string/>
+				</void>
+
+				<void method="addDefaultSecurityPermission">
+					<string>runtime</string>
+					<string>method.java.net.MalformedURLException.*</string>
+					<string/>
+				</void>
+		
+				<void method="addDefaultSecurityPermission">
+					<string>runtime</string>
+					<string>method.java.net.URI.*</string>
+					<string/>
+				</void>
+
+				<void method="addDefaultSecurityPermission">
+					<string>runtime</string>
+					<string>method.java.net.URL.*</string>
+					<string/>
+				</void>
+		
+				<void method="addDefaultSecurityPermission">
+					<string>runtime</string>
+					<string>method.java.io.DataInputStream.*</string>
+					<string/>
+				</void>
+
+				<void method="addDefaultSecurityPermission">
+					<string>runtime</string>
+					<string>method.java.io.DataOutputStream.*</string>
+					<string/>
+				</void>
+
+				<void method="addDefaultSecurityPermission">
+					<string>runtime</string>
+					<string>method.java.io.FilePermission.*</string>
+					<string/>
+				</void>
+		
+				<void method="addDefaultSecurityPermission">
+					<string>runtime</string>
+					<string>method.java.io.BufferedWriter.*</string>
+					<string/>
+				</void>
+
+				<void method="addDefaultSecurityPermission">
+					<string>runtime</string>
+					<string>method.java.io.BufferedReader.*</string>
+					<string/>
+				</void>
+
+				<void method="addDefaultSecurityPermission">
+					<string>runtime</string>
+					<string>method.java.io.StringWriter.*</string>
+					<string/>
+				</void>
+		
+				<void method="addDefaultSecurityPermission">
+					<string>runtime</string>
+					<string>method.java.io.StringReader.*</string>
+					<string/>
+				</void>
+
+				<void method="addDefaultSecurityPermission">
+					<string>runtime</string>
+					<string>method.java.io.BufferedInputStream.*</string>
+					<string/>
+				</void>
+
+				<void method="addDefaultSecurityPermission">
+					<string>runtime</string>
+					<string>method.java.io.BufferedOutputStream.*</string>
+					<string/>
+				</void>
+		
+				<void method="addDefaultSecurityPermission">
+					<string>runtime</string>
+					<string>method.java.io.ByteArrayInputStream.*</string>
+					<string/>
+				</void>
+
+				<void method="addDefaultSecurityPermission">
+					<string>runtime</string>
+					<string>method.java.io.ByteArrayOutputStream.*</string>
+					<string/>
+				</void>
+
+				<void method="addDefaultSecurityPermission">
+					<string>runtime</string>
+					<string>method.java.io.Serializable.*</string>
+					<string/>
+				</void>
+
+				<void method="addDefaultSecurityPermission">
+					<string>runtime</string>
+					<string>method.java.io.IOException.*</string>
+					<string/>
+				</void>
+
+				<void method="addDefaultSecurityPermission">
+					<string>runtime</string>
+					<string>method.java.io.InputStream.*</string>
+					<string/>
+				</void>
+
+				<void method="addDefaultSecurityPermission">
+					<string>runtime</string>
+					<string>method.java.io.OutputStream.*</string>
+					<string/>
+				</void>
+
+				<void method="addDefaultSecurityPermission">
+					<string>runtime</string>
+					<string>method.java.io.ObjectInputStream.*</string>
+					<string/>
+				</void>
+
+				<void method="addDefaultSecurityPermission">
+					<string>runtime</string>
+					<string>method.java.io.ObjectOutputStream.*</string>
+					<string/>
+				</void>
+
+				<void method="addDefaultSecurityPermission">
+					<string>runtime</string>
+					<string>method.java.io.UnsupportedEncodingException.*</string>
+					<string/>
+				</void>
+
+				<void method="addDefaultSecurityPermission">
+					<string>runtime</string>
+					<string>method.java.io.ObjectInputStream.*</string>
+					<string/>
+				</void>
+
+				<void method="addDefaultSecurityPermission">
+					<string>runtime</string>
+					<string>method.java.io.ObjectOutputStream.*</string>
+					<string/>
+				</void>
+
+				<void method="addDefaultSecurityPermission">
+					<string>runtime</string>
+					<string>method.java.io.UnsupportedEncodingException.*</string>
+					<string/>
+				</void>
+
+				<void method="addDefaultSecurityPermission">
+					<string>runtime</string>
+					<string>method.java.io.InvalidObjectException.*</string>
+					<string/>
+				</void>
+
+				<void method="addDefaultSecurityPermission">
+					<string>runtime</string>
+					<string>method.java.io.Reader.*</string>
+					<string/>
+				</void>
+
+				<void method="addDefaultSecurityPermission">
+					<string>runtime</string>
+					<string>method.java.io.Writer.*</string>
+					<string/>
+				</void>
+		
+				<void method="addDefaultSecurityPermission">
+					<string>runtime</string>
+					<string>method.java.io.PrintWriter.*</string>
+					<string/>
+				</void>
+
+				<void method="addDefaultSecurityPermission">
+					<string>runtime</string>
+					<string>method.java.io.PrintStream.*</string>
+					<string/>
+				</void>
+
+				<void method="addDefaultSecurityPermission">
+					<string>runtime</string>
+					<string>method.java.io.InputStreamReader.*</string>
+					<string/>
+				</void>
+
+				<void method="addDefaultSecurityPermission">
+					<string>runtime</string>
+					<string>method.java.io.OutputStreamWriter.*</string>
+					<string/>
+				</void>
+
+				<void method="addDefaultSecurityPermission">
+					<string>runtime</string>
+					<string>method.java.io.FileNotFoundException.*</string>
+					<string/>
+				</void>
+
+				<void method="addDefaultSecurityPermission">
+					<string>runtime</string>
+					<string>method.java.io.EOFException.*</string>
+					<string/>
+				</void>
+
+				<void method="addDefaultSecurityPermission">
+					<string>runtime</string>
+					<string>method.java.io.Flushable.*</string>
+					<string/>
+				</void>
+		
+				<void method="addDefaultSecurityPermission">
+					<string>runtime</string>
+					<string>method.java.io.Closeable.*</string>
+					<string/>
+				</void>
+				
+				<void method="addDefaultSecurityPermission">
+					<string>runtime</string>
+					<string>method.java.lang.reflect.Method.getAnnotation</string>
+					<string/>
+				</void>
+				
+				<void method="addDefaultSecurityPermission">
+					<string>runtime</string>
+					<string>method.java.io.CharArrayReader.*</string>
+					<string/>
+				</void>
+				
+				<void method="addDefaultSecurityPermission">
+					<string>runtime</string>
+					<string>method.java.lang.Thread.sleep</string>
+					<string/>
+				</void>
+
+				<void method="addDefaultSecurityPermission">
+					<string>runtime</string>
+					<string>method.java.lang.ClassLoader.getResources</string>
+					<string/>
+				</void>
+				
+			</object>
 		</void>
 
 		<void property="pluginManager">
-			<object class="br.com.uoutec.community.ediacaran.PluginManagerImp"/>
+			<object class="br.com.uoutec.ediacaran.core.PluginManagerImp"/>
 		</void>
 
 		<void property="pluginConfigurationFileReader">
-			<object class="br.com.uoutec.community.ediacaran.plugins.PluginConfigurationFileReaderImp"/>
+			<object class="br.com.uoutec.ediacaran.core.plugins.PluginConfigurationFileReaderImp"/>
 		</void>
 
 		<void property="pluginManagerData">
-			<object class="br.com.uoutec.community.ediacaran.PluginManagerDataImp"/>
+			<object class="br.com.uoutec.ediacaran.core.PluginManagerDataImp"/>
 		</void>
 		
 		<void property="pluginConfigurationFileWriter">
-			<object class="br.com.uoutec.community.ediacaran.plugins.PluginConfigurationFileWriterImp"/>
+			<object class="br.com.uoutec.ediacaran.core.plugins.PluginConfigurationFileWriterImp"/>
 		</void>
 
 		<void property="exportImportPlugins">
-			<object class="br.com.uoutec.community.ediacaran.plugins.ExportImportPluginsImp"/>
+			<object class="br.com.uoutec.ediacaran.core.plugins.ExportImportPluginsImp"/>
 		</void>
 
 		<void property="pluginInitializer">
-			<object class="br.com.uoutec.community.ediacaran.weld.BuilderPluginInitializer">
+			<object class="br.com.uoutec.ediacaran.weld.plugin.BuilderPluginInitializer">
+			    <!--
+				<void method="addService">
+					<string>br.com.uoutec.ediacaran.weld.WeldEdiacaranThreadPoolExecutorServices</string>
+				</void>
+				-->
 				<!--
 				<void method="addExtension">
 					<string>com.arjuna.ats.jta.cdi.TransactionExtension</string>
@@ -83,42 +412,46 @@
 		</void>
 
 		<void property="pluginsSuppliersFactory">
-			<object class="br.com.uoutec.community.ediacaran.weld.PluginsSuppliersFactoryImp"/>
+			<object class="br.com.uoutec.ediacaran.core.plugins.PluginsSuppliersFactoryImp"/>
 		</void>
 	
 		<void property="pluginInstaller">
-			<object class="br.com.uoutec.community.ediacaran.plugins.PluginInstallerImp"/>
+			<object class="br.com.uoutec.ediacaran.core.plugins.PluginInstallerImp"/>
 		</void>
 
 		<void property="pluginClassLoaderFactory">
-			<object class="br.com.uoutec.community.ediacaran.weld.tomcat.TomcatBuilderClassLoaderFactory">
+			<object class="br.com.uoutec.ediacaran.web.tomcat.TomcatBuilderClassLoaderFactory">
 				<!--
 				<void method="addIncludePluginClassPathMatch">
 					<string>.*persistence.*</string>
 				</void>
-				-->
-				<!--
 				<void method="addIncludePluginClassPathMatch">
 					<string>.*plugin.*</string>
 				</void>
-				-->
 				<void method="addIncludePluginClassPathMatch">
 					<string>.*filter.*</string>
+				</void>
+				-->
+				
+				<!--				
+				<void method="addIncludePluginClassPathMatch">
+					<string>front-security</string>
+					<string>.*front-security.*</string>
+				</void>
+				
+				<void method="addIncludePluginClassPathMatch">
+					<string>web</string>
+					<string>.*web-plugin.*</string>
 				</void>
 				
 				<void method="addIncludePluginClassPathMatch">
 					<string>security</string>
-					<string>.*system-security.*</string>
+					<string>.*security.*</string>
 				</void>
 				
 				<void method="addIncludePluginClassPathMatch">
 					<string>system</string>
 					<string>.*system-ediacaran.*</string>
-				</void>
-
-				<void method="addIncludePluginClassPathMatch">
-					<string>persistence</string>
-					<string>.*persistence-ediacaran.*</string>
 				</void>
 				
 				<void method="addIncludePluginClassPathMatch">
@@ -126,6 +459,11 @@
 					<string>.*front-ediacaran.*</string>
 				</void>
 				
+				<void method="addIncludePluginClassPathMatch">
+					<string>test</string>
+					<string>.*ediacaran-test.*</string>
+				</void>
+				-->
 			</object>
 		</void>
 		
@@ -138,11 +476,11 @@
 		-->
 		
 		<void property="pluginsLoader">
-			<object class="br.com.uoutec.community.ediacaran.plugins.PluginsLoaderImp"/>
+			<object class="br.com.uoutec.ediacaran.core.plugins.PluginsLoaderImp"/>
 		</void>
 
 		<void property="varParser">
-			<object class="br.com.uoutec.community.ediacaran.weld.VarParserConfigurationImp">
+			<object class="br.com.uoutec.ediacaran.core.VarParserConfigurationImp">
 			
 				<void property="useDefaultVars">
 					<boolean>true</boolean>
@@ -151,7 +489,7 @@
 				<!--
 				<void method="registerVarResolver">
 					<string>teste</string>
-					<object class="br.com.uoutec.community.ediacaran.weld.VarParserImp"/>
+					<object class="br.com.uoutec.ediacaran.weld.VarParserImp"/>
 				</void>
 				-->
 				
@@ -159,143 +497,27 @@
 		</void>
 
 		<void method="addPluginSearch">
-			<object class="br.com.uoutec.community.ediacaran.plugins.JarPluginsSearch">
+			<object class="br.com.uoutec.ediacaran.core.plugins.JarPluginsSearch">
 			
 				<void property="exportImportPlugins">
-					<object class="br.com.uoutec.community.ediacaran.plugins.ExportImportPluginsImp"/>
+					<object class="br.com.uoutec.ediacaran.core.plugins.ExportImportPluginsImp"/>
 				</void>
 			
 			</object>
 		</void>
 
 		<void method="addPluginSearch">
-			<object class="br.com.uoutec.community.ediacaran.plugins.FileSystemPluginsSearch"/>
+			<object class="br.com.uoutec.ediacaran.core.plugins.FileSystemPluginsSearch"/>
 		</void>
 
 		<void method="addEntity">
-			<object class="br.com.uoutec.community.ediacaran.web.SecurityProviderImp"/>
+			<object class="br.com.uoutec.ediacaran.web.SecurityProviderImp"/>
 			<array class="java.lang.Class" length="0"/>
 		</void>
 		
-		<!--
-		<void method="addResource">
-		
-			<object class="br.com.uoutec.community.ediacaran.Resource">
-			
-				<void method="setName">
-					<string>java:comp/env/ds/direct_database</string>
-				</void>
-				
-				<void method="setType">
-					<string>com.mysql.jdbc.jdbc2.optional.MysqlXADataSource</string>
-				</void>
-
-				<void method="addProperty">
-					<string>url</string>
-					<string>jdbc:mysql://uoutec1/uoutec_services?autoReconnect=true</string>
-				</void>
-
-				<void method="addProperty">
-					<string>user</string>
-					<string>test</string>
-				</void>
-			
-				<void method="addProperty">
-					<string>password</string>
-					<string>test</string>
-				</void>
-				
-			</object>
-		</void>
-
-		<void method="addResource">
-		
-			<object class="br.com.uoutec.community.ediacaran.Resource">
-			
-				<void method="setName">
-					<string>java:comp/UserTransaction</string>
-				</void>
-				
-				<void method="setFactory">
-					<string>com.arjuna.ats.internal.jta.transaction.arjunacore.UserTransactionImple</string>
-				</void>
-				
-			</object>
-			
-		</void>
-		
-		<void method="addResource">
-		
-			<object class="br.com.uoutec.community.ediacaran.Resource">
-			
-				<void method="setName">
-					<string>java:comp/env/TransactionManager</string>
-				</void>
-				
-				<void method="setFactory">
-					<string>com.arjuna.ats.internal.jta.transaction.arjunacore.TransactionManagerImple</string>
-				</void>
-				
-			</object>
-			
-		</void>
-		
-		<void method="addResource">
-		
-			<object class="br.com.uoutec.community.ediacaran.Resource">
-			
-				<void method="setName">
-					<string>java:comp/env/TransactionSynchronizationRegistry</string>
-				</void>
-				
-				<void method="setFactory">
-					<string>com.arjuna.ats.internal.jta.transaction.arjunacore.TransactionManagerImple</string>
-				</void>
-				
-			</object>
-
-		</void>
-		
-		<void method="addResource">
-		
-			<object class="br.com.uoutec.community.ediacaran.Resource">
-			
-				<void method="setName">
-					<string>java:comp/env/ds/database</string>
-				</void>
-
-				<void method="setType">
-					<string>javax.sql.DataSource</string>
-				</void>
-				
-				<void method="addProperty">
-					<string>driverClassName</string>
-					<string>com.arjuna.ats.jdbc.TransactionalDriver</string>
-				</void>
-				
-				<void method="addProperty">
-					<string>url</string>
-					<string>jdbc:arjuna:java:comp/env/ds/direct_database</string>
-				</void>
-				
-			</object>
-			
-		</void>
-		
-		<void method="setSystemProperty">
-			<string>java.naming.factory.url.pkgs</string>
-			<string>org.apache.naming</string>
-		</void>
-		
-		<void method="setSystemProperty">
-			<string>java.naming.factory.initial</string>
-			<string>org.apache.naming.java.javaURLContextFactory</string>
-		</void>
-		-->
-		
 		<void method="setSystemProperty">
 			<string>java.security.auth.login.config</string>
-			<string>config/jaas.config</string>
+			<string>C:/develop/ediacaran/config/jaas.config</string>
 		</void>
 		
 		<void method="setSystemProperty">

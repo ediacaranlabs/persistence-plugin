@@ -2,15 +2,18 @@ package br.com.uoutec.community.ediacaran.core.persistence.registry;
 
 import static br.com.uoutec.community.ediacaran.persistence.DataLoaderHelper.clearData;
 import static br.com.uoutec.ediacaran.core.plugins.EntityContextPlugin.getEntity;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.concurrent.Callable;
 
 import javax.persistence.TransactionRequiredException;
 
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
+import br.com.uoutec.application.junit.JunitRunner;
 import br.com.uoutec.community.ediacaran.persistence.DataLoaderHelper;
 import br.com.uoutec.community.ediacaran.persistence.entity.Language;
 import br.com.uoutec.community.ediacaran.persistence.registry.LanguageRegistry;
@@ -19,9 +22,8 @@ import br.com.uoutec.ediacaran.junit.ApplicationConfigParameterTest;
 import br.com.uoutec.ediacaran.junit.ApplicationConfigParametersTest;
 import br.com.uoutec.ediacaran.junit.ApplicationConfigTest;
 import br.com.uoutec.ediacaran.junit.PluginContext;
-import br.com.uoutec.ediacaran.junit.junit4.EdiacaranTestRunner;
 
-@RunWith(EdiacaranTestRunner.class)
+@ExtendWith(JunitRunner.class)
 @ApplicationConfigTest("ediacaran/test/br/com/uoutec/community/ediacaran/core/persistence/registry/jtatransactiontest/ediacaran-config.xml")
 @ApplicationConfigParametersTest({
 	@ApplicationConfigParameterTest(paramName="plugins_path", paramValue="ediacaran/test/br/com/uoutec/community/ediacaran/core/persistence/registry/jtatransactiontest/plugins"),
@@ -52,8 +54,8 @@ public class JTATransactionTest {
 		
 		Language lang = languageRegistry.getLanguageByIso6391("pt");
 		
-		Assert.assertNotNull(lang);
-		Assert.assertEquals("pt", lang.getIso6391());
+		assertNotNull(lang);
+		assertEquals("pt", lang.getIso6391());
 		
 	}
 
@@ -63,7 +65,7 @@ public class JTATransactionTest {
 		try {
 			//clearData();
 			DataLoaderHelper.registerLangPt();
-			Assert.fail("expected javax.persistence.TransactionRequiredException(\"no transaction is in progress\")");
+			fail("expected javax.persistence.TransactionRequiredException(\"no transaction is in progress\")");
 		}
 		catch(Throwable e) {
 			while(e != null && !(e instanceof TransactionRequiredException)) {
