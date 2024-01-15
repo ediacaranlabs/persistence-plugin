@@ -23,6 +23,7 @@ import br.com.uoutec.community.ediacaran.persistence.entity.Language;
 import br.com.uoutec.community.ediacaran.persistence.registry.CountryRegistry;
 import br.com.uoutec.community.ediacaran.persistence.registry.LanguageRegistry;
 import br.com.uoutec.community.ediacaran.persistence.registry.RegionRegistry;
+import br.com.uoutec.community.ediacaran.system.cdi.ActiveRequestContext;
 import br.com.uoutec.ediacaran.junit.ApplicationConfigParameterTest;
 import br.com.uoutec.ediacaran.junit.ApplicationConfigParametersTest;
 import br.com.uoutec.ediacaran.junit.ApplicationConfigTest;
@@ -38,11 +39,13 @@ import br.com.uoutec.ediacaran.junit.junit5.EdiacaranExt;
 public class CountryRegistryTest {
 
 	@BeforeEach
+	@ActiveRequestContext
 	public void beforeTest() {
 		clearData();
 	}
 	
 	@Test
+	@ActiveRequestContext
 	public void testRegister(
 			CountryRegistry countryRegistry, LanguageRegistry languageRegistry, 
 			RegionRegistry regionRegistry) throws Throwable {
