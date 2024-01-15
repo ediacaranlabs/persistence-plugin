@@ -71,7 +71,7 @@ public class CountryRegistryTest {
 	}
 
 	@Test
-	@PluginContext("persistence")
+	@ActiveRequestContext
 	public void testFindByID(
 			CountryRegistry countryRegistry) throws Throwable {
 		
@@ -94,7 +94,7 @@ public class CountryRegistryTest {
 	}
 
 	@Test
-	@PluginContext("persistence")
+	@ActiveRequestContext
 	public void testFindByUFI(
 			CountryRegistry countryRegistry,
 			LanguageRegistry languageRegistry) throws Throwable {
@@ -117,7 +117,7 @@ public class CountryRegistryTest {
 	}
 
 	@Test
-	@PluginContext("persistence")
+	@ActiveRequestContext
 	public void testRemove(
 			CountryRegistry countryRegistry,
 			LanguageRegistry languageRegistry) throws Throwable {
@@ -137,7 +137,7 @@ public class CountryRegistryTest {
 	}
 
 	@Test
-	@PluginContext("persistence")
+	@ActiveRequestContext
 	public void testFindByIsoAlpha3(
 			CountryRegistry countryRegistry,
 			LanguageRegistry languageRegistry) throws Throwable {
@@ -152,7 +152,7 @@ public class CountryRegistryTest {
 	}
 
 	@Test
-	@PluginContext("persistence")
+	@ActiveRequestContext
 	public void testFindByIsoAlpha2(
 			CountryRegistry countryRegistry,
 			LanguageRegistry languageRegistry) throws Throwable {
@@ -167,7 +167,7 @@ public class CountryRegistryTest {
 	}
 
 	@Test
-	@PluginContext("persistence")
+	@ActiveRequestContext
 	public void testGetAll(
 			CountryRegistry countryRegistry, LanguageRegistry languageRegistry, 
 			RegionRegistry regionRegistry) throws Throwable {
@@ -188,7 +188,7 @@ public class CountryRegistryTest {
 	}
 
 	@Test
-	@PluginContext("persistence")
+	@ActiveRequestContext
 	public void testGetAllLanguage(
 			CountryRegistry countryRegistry, LanguageRegistry languageRegistry, 
 			RegionRegistry regionRegistry) throws Throwable {
@@ -204,7 +204,7 @@ public class CountryRegistryTest {
 	}
 
 	@Test
-	@PluginContext("persistence")
+	@ActiveRequestContext
 	public void testGetAllLocale(
 			CountryRegistry countryRegistry, LanguageRegistry languageRegistry, 
 			RegionRegistry regionRegistry) throws Throwable {
