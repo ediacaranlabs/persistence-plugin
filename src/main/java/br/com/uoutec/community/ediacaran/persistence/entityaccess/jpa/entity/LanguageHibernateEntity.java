@@ -2,6 +2,7 @@ package br.com.uoutec.community.ediacaran.persistence.entityaccess.jpa.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -11,6 +12,7 @@ import br.com.uoutec.community.ediacaran.persistence.entity.Language;
 
 @Entity
 @Table(name="rw_language")
+@EntityListeners(LanguageHibernateEntityListener.class)
 public class LanguageHibernateEntity {
 
 	@Id

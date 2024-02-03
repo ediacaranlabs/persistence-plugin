@@ -2,6 +2,7 @@ package br.com.uoutec.community.ediacaran.persistence.entityaccess.jpa.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,6 +16,7 @@ import br.com.uoutec.community.ediacaran.persistence.entity.Country;
 
 @Entity
 @Table(name="rw_country")
+@EntityListeners(CountryHibernateEntityListener.class)
 public class CountryHibernateEntity {
 
 	@Id

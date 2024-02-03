@@ -11,8 +11,10 @@ import javax.enterprise.inject.Disposes;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import javax.persistence.EntityListeners;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceException;
 import javax.persistence.spi.PersistenceUnitInfo;
 import javax.sql.DataSource;
 
@@ -23,6 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import br.com.uoutec.community.ediacaran.persistence.Constants;
+import br.com.uoutec.community.ediacaran.persistence.SecurityEntitylListener;
 import br.com.uoutec.ediacaran.core.ResourceRegistry;
 import br.com.uoutec.ediacaran.core.VarParser;
 import br.com.uoutec.ediacaran.core.plugins.PluginType;
@@ -113,6 +116,24 @@ public class JPAInitializer {
 		s.addIncludeFilter(filter);
 		s.scan();
 		List<Class<?>> list = s.getClassList();
+		
+		classList: for(Class<?> entityClass: list) {
+		
+			EntityListeners elAnnotation = 
+					entityClass.getAnnotation(EntityListeners.class);
+			
+			Class<?>[] listeners =  elAnnotation.value();
+			
+			for(Class<?> l: listeners) {
+				if(SecurityEntitylListener.class.isAssignableFrom(l)) {
+					continue classList;
+				}
+			}
+			
+			throw new PersistenceException("not found listener: " + SecurityEntitylListener.class.getName());
+			
+		}
+		
 		List<String> managedClass = list.stream().map(e->e.getName()).collect(Collectors.toList());
 		
 		if(logger.isTraceEnabled()) {
