@@ -1,5 +1,7 @@
 package br.com.uoutec.community.ediacaran.persistence.entityaccess.jpa;
 
+import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.Proxy;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -24,6 +26,8 @@ import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import br.com.uoutec.application.security.ContextSystemSecurityCheck;
+import br.com.uoutec.application.security.RuntimeSecurityPermission;
 import br.com.uoutec.community.ediacaran.persistence.Constants;
 import br.com.uoutec.community.ediacaran.persistence.SecurityEntitylListener;
 import br.com.uoutec.ediacaran.core.ResourceRegistry;
@@ -54,10 +58,31 @@ public class JPAInitializer {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	@Produces
 	@RequestScoped
 	public EntityManager createSessionFactory() throws Throwable {
+		EntityManager em = createSessionFactory0();
+		
+		return (EntityManager) Proxy.newProxyInstance(
+				getClass().getClassLoader(), 
+				new Class<?>[] {EntityManager.class},
+				(InvocationHandler)(proxy, method, args)->{
+					
+					ContextSystemSecurityCheck.checkPermission(
+							new RuntimeSecurityPermission(
+									"persistence.context." + method.getName().toLowerCase()
+							)
+					);
+					
+					return method.invoke(em, args);
+					
+				}
+		);
+		
+	}
+	
+	@SuppressWarnings("unchecked")
+	public EntityManager createSessionFactory0() throws Throwable {
 
 		if(emf != null) {
 			return emf.createEntityManager();
@@ -119,8 +144,14 @@ public class JPAInitializer {
 		
 		classList: for(Class<?> entityClass: list) {
 		
+			
 			EntityListeners elAnnotation = 
 					entityClass.getAnnotation(EntityListeners.class);
+			
+			if(elAnnotation == null) {
+				throw new PersistenceException(
+						"not found SecurityEntitylListener: " + entityClass.getName());
+			}
 			
 			Class<?>[] listeners =  elAnnotation.value();
 			

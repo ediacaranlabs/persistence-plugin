@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
@@ -18,6 +19,7 @@ import br.com.uoutec.community.ediacaran.system.event.SystemEventType;
 
 @Entity
 @Table(name="rw_system_event")
+@EntityListeners(SystemEventHibernateEntityListener.class)
 public class SystemEventHibernateEntity implements Serializable{
 
 	private static transient final long serialVersionUID = -816509735915090284L;

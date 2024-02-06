@@ -11,20 +11,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
-import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
-import br.com.uoutec.application.security.FileSecurityPermission;
-import br.com.uoutec.application.security.FileSecurityPermissionActions;
-import br.com.uoutec.application.security.PropertySecurityPermission;
-import br.com.uoutec.application.security.PropertySecurityPermissionActions;
-import br.com.uoutec.application.security.SecurityPermission;
 import br.com.uoutec.community.ediacaran.persistence.entity.Country;
 import br.com.uoutec.community.ediacaran.persistence.entity.Language;
 import br.com.uoutec.community.ediacaran.persistence.registry.CountryRegistry;
@@ -45,21 +38,6 @@ import br.com.uoutec.ediacaran.junit.junit5.EdiacaranExt;
 @PluginContext("persistence")
 public class CountryRegistryTest {
 
-	@SuppressWarnings({ "serial", "unused" })
-	private Set<SecurityPermission> securityPermissions = new HashSet<SecurityPermission>() {{
-
-		add(new FileSecurityPermission(
-				"ALL", 
-				FileSecurityPermissionActions.ALL
-		));
-		
-		add(new PropertySecurityPermission(
-				"*", 
-				PropertySecurityPermissionActions.ALL
-		));
-		
-	}};
-	
 	@BeforeEach
 	@ActiveRequestContext
 	public void beforeTest() {
