@@ -82,7 +82,7 @@
 		<dependency>
 			<groupId>org.jboss</groupId>
 			<artifactId>jboss-transaction-spi</artifactId>
-			<version>8.0.0.Final</version>
+			<version>7.6.1.Final</version>
 		</dependency>
 		<!--
 		<dependency>
@@ -131,21 +131,6 @@
 			</exclusions>
 		</dependency>
 		-->
-		<dependency>
-			<groupId>org.jboss</groupId>
-			<artifactId>jboss-transaction-spi</artifactId>
-			<version>8.0.0.Final</version>
-			<exclusions>
-				<exclusion>
-					<groupId>jakarta.transaction</groupId>
-					<artifactId>jakarta.transaction-api</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>jakarta.resource</groupId>
-					<artifactId>jakarta.resource-api</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
 		<!--
 		<dependency>
 			<groupId>org.jboss.logging</groupId>
