@@ -12,7 +12,7 @@ public class SecurityEntitylListener<T> {
 
 	public static final String PREFIX = "persistence.entity.";
 	
-	private Class<?> type;
+	private final Class<?> type;
 	
 	public SecurityEntitylListener() {
 		this.type = 
@@ -21,7 +21,7 @@ public class SecurityEntitylListener<T> {
 	}
 	
 	@PrePersist
-    private void beforePersist(T o) {
+    private final void beforePersist(T o) {
 		
 		if(o == null || o.getClass() != type) {
 			throw new IllegalArgumentException(String.valueOf(o));
@@ -34,7 +34,7 @@ public class SecurityEntitylListener<T> {
     }
 
     @PreUpdate
-    private void beforeUpdate(T o) {
+    private final void beforeUpdate(T o) {
     	
 		if(o == null || o.getClass() != type) {
 			throw new IllegalArgumentException(String.valueOf(o));
@@ -47,7 +47,7 @@ public class SecurityEntitylListener<T> {
     }
 
     @PreRemove
-    private void beforeRemove(T o) {
+    private final void beforeRemove(T o) {
     	
 		if(o == null || o.getClass() != type) {
 			throw new IllegalArgumentException(String.valueOf(o));
@@ -60,7 +60,7 @@ public class SecurityEntitylListener<T> {
     }
 
     @PostLoad
-    private void afterLoad(T o) {
+    private final void afterLoad(T o) {
 
 		if(o == null || o.getClass() != type) {
 			throw new IllegalArgumentException(String.valueOf(o));
