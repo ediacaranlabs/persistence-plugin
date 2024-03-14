@@ -24,20 +24,38 @@ import br.com.uoutec.community.ediacaran.persistence.registry.CountryRegistry;
 import br.com.uoutec.community.ediacaran.persistence.registry.LanguageRegistry;
 import br.com.uoutec.community.ediacaran.persistence.registry.RegionRegistry;
 import br.com.uoutec.community.ediacaran.system.cdi.ActiveRequestContext;
-import br.com.uoutec.ediacaran.junit.ApplicationConfigParameterTest;
-import br.com.uoutec.ediacaran.junit.ApplicationConfigParametersTest;
-import br.com.uoutec.ediacaran.junit.ApplicationConfigTest;
+import br.com.uoutec.community.ediacaran.test.mock.PluginsLoaderMock;
+import br.com.uoutec.ediacaran.core.EdiacaranBootstrap;
+import br.com.uoutec.ediacaran.core.plugins.EntityContextPlugin;
 import br.com.uoutec.ediacaran.junit.PluginContext;
 import br.com.uoutec.ediacaran.junit.junit5.EdiacaranExt;
+import br.com.uoutec.ediacaran.weld.tomcat.TomcatServerBootstrapBuilder;
 
 @ExtendWith(EdiacaranExt.class)
-@ApplicationConfigTest("ediacaran/test/br/com/uoutec/community/ediacaran/core/persistence/registry/countryregistrytest/ediacaran-config.xml")
-@ApplicationConfigParametersTest({
-	@ApplicationConfigParameterTest(paramName="plugins_path", paramValue="ediacaran/test/br/com/uoutec/community/ediacaran/core/persistence/registry/countryregistrytest/plugins"),
-})
 @PluginContext("persistence")
 public class CountryRegistryTest {
 
+	public EdiacaranBootstrap getEdiacaranBootstrap() {
+		return TomcatServerBootstrapBuilder.builder()
+				.withPluginLoader(PluginsLoaderMock.builder()
+						.withLoadAllPlugins(true)
+						.withProperty("persistence", "user", "sa")
+						.withProperty("persistence", "pass", "")
+						.withProperty("persistence", "properties", 
+							new StringBuilder()
+								.append("properties.properties.value=javax.persistence.jdbc.driver=org.hsqldb.jdbcDriver").append("\n")
+								.append("javax.persistence.jdbc.url=jdbc:hsqldb:mem:testdb").append("\n")
+								.append("javax.persistence.jdbc.user=${plugins.ediacaran.persistence.user}").append("\n")
+								.append("javax.persistence.jdbc.password=${plugins.ediacaran.persistence.pass}").append("\n")
+								.append("hibernate.dialect=org.hibernate.dialect.HSQLDialect").append("\n")
+								.append("hibernate.allow_update_outside_transaction=true").append("\n")
+								.append("hibernate.hbm2ddl.auto=update").append("\n")
+							.toString()				
+						)
+				.build())
+		.build();
+	}
+	
 	@BeforeEach
 	@ActiveRequestContext
 	public void beforeTest() {
@@ -46,9 +64,9 @@ public class CountryRegistryTest {
 	
 	@Test
 	@ActiveRequestContext
-	public void testRegister(
-			CountryRegistry countryRegistry, LanguageRegistry languageRegistry, 
-			RegionRegistry regionRegistry) throws Throwable {
+	public void testRegister() throws Throwable {
+		
+		CountryRegistry countryRegistry = EntityContextPlugin.getEntity(CountryRegistry.class);
 		
 		registerLangPt();
 		registerRegionAmericaDoSulPt();

@@ -20,7 +20,6 @@ import javax.persistence.PersistenceException;
 import javax.persistence.spi.PersistenceUnitInfo;
 import javax.sql.DataSource;
 
-import org.brandao.brutos.annotation.scanner.DefaultScanner;
 import org.brandao.brutos.annotation.scanner.filter.AnnotationTypeFilter;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.slf4j.Logger;
@@ -33,6 +32,7 @@ import br.com.uoutec.community.ediacaran.persistence.SecurityEntitylListener;
 import br.com.uoutec.ediacaran.core.ResourceRegistry;
 import br.com.uoutec.ediacaran.core.VarParser;
 import br.com.uoutec.ediacaran.core.plugins.PluginType;
+import br.com.uoutec.ediacaran.web.EdiacaranScanner;
 
 @Singleton
 public class JPAInitializer {
@@ -136,7 +136,7 @@ public class JPAInitializer {
 			logger.trace("filter: {}", filter);
 		}
 		
-		DefaultScanner s = new DefaultScanner();
+		EdiacaranScanner s = new EdiacaranScanner();
 		s.setBasePackage(packageNames);
 		s.addIncludeFilter(filter);
 		s.scan();

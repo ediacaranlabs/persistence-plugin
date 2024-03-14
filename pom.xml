@@ -66,13 +66,6 @@
 			<version>5.6.5.Final</version>
 			<scope>provided</scope>
 		</dependency>
-		<!--		
- 		<dependency>
-			<groupId>br.com.uoutec</groupId>
-			<artifactId>persistence-hibernate</artifactId>
-			<version>1.0.0</version>
-		</dependency>
--->
 		<!-- transaction -->
 		<dependency>
 			<groupId>org.jboss.narayana.jta</groupId>
@@ -84,101 +77,28 @@
 			<artifactId>jboss-transaction-spi</artifactId>
 			<version>7.6.1.Final</version>
 		</dependency>
-		<!--
-		<dependency>
-			<groupId>org.jboss.narayana.jta</groupId>
-			<artifactId>narayana-jta</artifactId>
-			<version>7.0.0.Final</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.jboss.logmanager</groupId>
-					<artifactId>jboss-logmanager</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>jakarta.ejb</groupId>
-					<artifactId>jakarta.ejb-api</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>jakarta.transaction</groupId>
-					<artifactId>jakarta.transaction-api</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>jakarta.resource</groupId>
-					<artifactId>jakarta.resource-api</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>jakarta.el</groupId>
-					<artifactId>jakarta.el-api</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>jakarta.enterprise</groupId>
-					<artifactId>jakarta.enterprise.cdi-api</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>jakarta.enterprise</groupId>
-					<artifactId>
-						jakarta.enterprise.lang-model
-					</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>jakarta.inject</groupId>
-					<artifactId>jakarta.inject-api</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>jakarta.interceptor</groupId>
-					<artifactId>jakarta.interceptor-api</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		-->
-		<!--
-		<dependency>
-			<groupId>org.jboss.logging</groupId>
-			<artifactId>jboss-logging</artifactId>
-			<version>3.1.2.GA</version>
-		</dependency>
-		-->
 		<!-- ediacaran -->
+		<dependency>
+			<groupId>br.com.uoutec</groupId>
+			<artifactId>application</artifactId>
+			<version>1.0.0</version>
+			<scope>provided</scope>
+		</dependency>
 		<dependency>
 			<groupId>br.com.uoutec</groupId>
 			<artifactId>ediacaran</artifactId>
 			<version>1.0.0</version>
 			<scope>provided</scope>
 		</dependency>
-		<!-- uoutec -->
-		<dependency>
-			<groupId>br.com.uoutec</groupId>
-			<artifactId>application-se</artifactId>
-			<version>1.0.0</version>
-			<scope>provided</scope>
-		</dependency>
-		<!-- weld -->
-		<dependency>
-			<groupId>org.jboss.weld.se</groupId>
-			<artifactId>weld-se</artifactId>
-			<version>2.4.8.Final</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.jboss</groupId>
-			<artifactId>jandex</artifactId>
-			<version>2.0.5.Final</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.jboss.weld.servlet</groupId>
-			<artifactId>weld-servlet</artifactId>
-			<version>2.4.8.Final</version>
-			<scope>provided</scope>
-		</dependency>
-		<!--  Test -->
 		<dependency>
 			<groupId>br.com.uoutec</groupId>
 			<artifactId>ediacaran-weld</artifactId>
 			<version>1.0.0</version>
-			<scope>test</scope>
+			<scope>provided</scope>
 		</dependency>
-		<dependency>
+		<!--  Test -->
+		<!--  Test -->
+        <dependency>
 			<groupId>br.com.uoutec</groupId>
 			<artifactId>ediacaran-junit</artifactId>
 			<version>1.0.0</version>
@@ -191,22 +111,22 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-core</artifactId>
-			<version>5.4.0</version>
-			<scope>test</scope>
+		    <groupId>org.mockito</groupId>
+		    <artifactId>mockito-core</artifactId>
+		    <version>5.4.0</version>
+		    <scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-api</artifactId>
-			<version>5.8.2</version>
-			<scope>test</scope>
-		</dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+		    <version>5.8.2</version>
+            <scope>test</scope>
+        </dependency>		
 		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-engine</artifactId>
-			<version>5.8.2</version>
-			<scope>test</scope>
+		    <groupId>org.junit.jupiter</groupId>
+		    <artifactId>junit-jupiter-engine</artifactId>
+		    <version>5.8.2</version>
+		    <scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.hsqldb</groupId>
