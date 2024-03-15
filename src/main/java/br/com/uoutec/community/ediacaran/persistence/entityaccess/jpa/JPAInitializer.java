@@ -20,11 +20,11 @@ import javax.persistence.PersistenceException;
 import javax.persistence.spi.PersistenceUnitInfo;
 import javax.sql.DataSource;
 
-import org.brandao.brutos.annotation.scanner.filter.AnnotationTypeFilter;
 import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import br.com.uoutec.application.scanner.filter.AnnotationTypeFilter;
 import br.com.uoutec.application.security.ContextSystemSecurityCheck;
 import br.com.uoutec.application.security.RuntimeSecurityPermission;
 import br.com.uoutec.community.ediacaran.persistence.Constants;
@@ -81,9 +81,14 @@ public class JPAInitializer {
 		
 	}
 	
-	@SuppressWarnings("unchecked")
 	public EntityManager createSessionFactory0() throws Throwable {
 
+		/*
+		Class<?> ffff = 
+				getClass().getClassLoader()
+				.loadClass("br.com.uoutec.community.ediacaran.persistence.CountryMock$Builder");
+		*/
+		
 		if(emf != null) {
 			return emf.createEntityManager();
 		}
