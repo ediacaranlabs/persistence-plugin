@@ -83,12 +83,6 @@ public class JPAInitializer {
 	
 	public EntityManager createSessionFactory0() throws Throwable {
 
-		/*
-		Class<?> ffff = 
-				getClass().getClassLoader()
-				.loadClass("br.com.uoutec.community.ediacaran.persistence.CountryMock$Builder");
-		*/
-		
 		if(emf != null) {
 			return emf.createEntityManager();
 		}
@@ -183,7 +177,8 @@ public class JPAInitializer {
 						"default-" + pluginData.getConfiguration().getMetadata().getCode(),
 						managedClass, 
 						(DataSource)jtaDataSource, 
-						(DataSource)dataSource);
+						(DataSource)dataSource,
+						s.getClassLoader());
 		
 		this.emf = 
 				new HibernatePersistenceProvider()

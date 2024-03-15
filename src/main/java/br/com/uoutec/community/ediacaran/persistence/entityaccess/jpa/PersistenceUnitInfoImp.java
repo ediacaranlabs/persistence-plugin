@@ -30,14 +30,17 @@ public class PersistenceUnitInfoImp implements PersistenceUnitInfo {
 	
 	private List<String> managedClassNames;
 	
+	private ClassLoader classLoader;
+	
 	public PersistenceUnitInfoImp(VarParser varParser, 
 			String unitName, List<String> managedClassNames, 
-			DataSource jtaDataSource, DataSource dataSource) {
+			DataSource jtaDataSource, DataSource dataSource, ClassLoader classLoader) {
 		this.varParser = varParser;
 		this.unitName = unitName;
 		this.jtaDataSource = jtaDataSource;
 		this.dataSource = dataSource;
 		this.managedClassNames = managedClassNames;
+		this.classLoader = classLoader;
 	}
 
 	private String getProperty(String name) {
@@ -133,7 +136,7 @@ public class PersistenceUnitInfoImp implements PersistenceUnitInfo {
 
 	@Override
 	public ClassLoader getClassLoader() {
-		return Thread.currentThread().getContextClassLoader();
+		return classLoader;
 	}
 
 	@Override
