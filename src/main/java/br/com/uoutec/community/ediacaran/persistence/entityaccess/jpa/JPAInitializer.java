@@ -29,10 +29,10 @@ import br.com.uoutec.application.security.ContextSystemSecurityCheck;
 import br.com.uoutec.application.security.RuntimeSecurityPermission;
 import br.com.uoutec.community.ediacaran.persistence.Constants;
 import br.com.uoutec.community.ediacaran.persistence.SecurityEntitylListener;
+import br.com.uoutec.ediacaran.core.EdiacaranScanner;
 import br.com.uoutec.ediacaran.core.ResourceRegistry;
 import br.com.uoutec.ediacaran.core.VarParser;
 import br.com.uoutec.ediacaran.core.plugins.PluginType;
-import br.com.uoutec.ediacaran.web.EdiacaranScanner;
 
 @Singleton
 public class JPAInitializer {
@@ -70,7 +70,7 @@ public class JPAInitializer {
 					
 					ContextSystemSecurityCheck.checkPermission(
 							new RuntimeSecurityPermission(
-									"persistence.context." + method.getName().toLowerCase()
+									"persistence.context." +  method.getName().toLowerCase()
 							)
 					);
 					
@@ -180,10 +180,17 @@ public class JPAInitializer {
 						(DataSource)dataSource,
 						s.getClassLoader());
 		
+		HibernatePersistenceProvider hibernatePersistenceProvider =
+				new HibernatePersistenceProvider();
+		
 		this.emf = 
-				new HibernatePersistenceProvider()
-				.createContainerEntityManagerFactory(pui, new HashMap<Object,Object>());
+				ContextSystemSecurityCheck.doPrivileged(
+						()->hibernatePersistenceProvider
+							.createContainerEntityManagerFactory(pui, new HashMap<Object,Object>())
+				);
+				
 
+		
 		return emf.createEntityManager();
 	}
 
