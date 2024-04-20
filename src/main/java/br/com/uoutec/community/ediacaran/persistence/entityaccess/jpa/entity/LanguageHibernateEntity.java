@@ -9,11 +9,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import br.com.uoutec.community.ediacaran.persistence.entity.Language;
+import br.com.uoutec.ediacaran.core.plugins.PublicType;
 
 @Entity
 @Table(name="rw_language")
 @EntityListeners(LanguageHibernateEntityListener.class)
-public class LanguageHibernateEntity {
+public class LanguageHibernateEntity implements PublicType{
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

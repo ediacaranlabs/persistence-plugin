@@ -16,11 +16,12 @@ import javax.persistence.TemporalType;
 
 import br.com.uoutec.community.ediacaran.system.event.SystemEvent;
 import br.com.uoutec.community.ediacaran.system.event.SystemEventType;
+import br.com.uoutec.ediacaran.core.plugins.PublicType;
 
 @Entity
 @Table(name="rw_system_event")
 @EntityListeners(SystemEventHibernateEntityListener.class)
-public class SystemEventHibernateEntity implements Serializable{
+public class SystemEventHibernateEntity implements Serializable, PublicType{
 
 	private static transient final long serialVersionUID = -816509735915090284L;
 

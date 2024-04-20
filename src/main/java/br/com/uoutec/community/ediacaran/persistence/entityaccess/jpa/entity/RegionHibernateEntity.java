@@ -12,11 +12,12 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import br.com.uoutec.community.ediacaran.persistence.entity.Region;
+import br.com.uoutec.ediacaran.core.plugins.PublicType;
 
 @Entity
 @Table(name="rw_region")
 @EntityListeners(RegionHibernateEntityListener.class)
-public class RegionHibernateEntity {
+public class RegionHibernateEntity implements PublicType{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
