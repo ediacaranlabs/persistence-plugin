@@ -1,6 +1,8 @@
 package br.com.uoutec.community.ediacaran.persistence.entityaccess.jpa;
 
 import java.lang.reflect.InvocationHandler;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -45,10 +47,13 @@ public class JPAInitializer {
 	
 	private EntityManagerFactory emf;
 
+	private ResourceRegistry resourceRegistry;
+	
 	@Inject
-	public JPAInitializer(PluginType pluginData,VarParser varParser) {
+	public JPAInitializer(PluginType pluginData,VarParser varParser, ResourceRegistry resourceRegistry) {
 		this.pluginData = pluginData;
 		this.varParser = varParser;
+		this.resourceRegistry = resourceRegistry;
 	}
 	
 	public void close(@Disposes EntityManager entityManager) {
@@ -68,17 +73,25 @@ public class JPAInitializer {
 				new Class<?>[] {EntityManager.class},
 				(InvocationHandler)(proxy, method, args)->{
 					
-					ContextSystemSecurityCheck.checkPermission(
-							new RuntimeSecurityPermission(
-									"persistence.context." +  method.getName().toLowerCase()
-							)
-					);
-					
-					return method.invoke(em, args);
+					return ContextSystemSecurityCheck.doPrivileged(()->{
+						return executeAction(em, method, args);
+					});
 					
 				}
 		);
 		
+	}
+	
+	private Object executeAction(EntityManager em, Method method, Object[] args
+			) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		
+		ContextSystemSecurityCheck.checkPermission(
+				new RuntimeSecurityPermission(
+						"persistence.context." +  method.getName().toLowerCase()
+				)
+		);
+		
+		return method.invoke(em, args);
 	}
 	
 	public EntityManager createSessionFactory0() throws Throwable {
@@ -94,24 +107,22 @@ public class JPAInitializer {
 		Object jtaDataSource = null;
 		Object dataSource = null;
 		
-		String dataSourceName = 
+		String jtaDataSourceName = 
 				varParser.getValue(
 						String.format("${plugins.%s.%s.%s}", Constants.PROVIDER, Constants.PLUGIN, Constants.JTA_DATA_SOURCE)
 				);
 		
-		if(dataSourceName != null && dataSourceName.trim().length() != 0) {
-			ResourceRegistry resourceRegistry = new ResourceRegistry();
-			jtaDataSource = resourceRegistry.lookup(dataSourceName);
+		if(jtaDataSourceName != null && jtaDataSourceName.trim().length() != 0) {
+			jtaDataSource = ContextSystemSecurityCheck.doPrivileged(()->resourceRegistry.lookup(jtaDataSourceName));
 		}
 
-		dataSourceName = 
+		String dataSourceName = 
 				varParser.getValue(
 						String.format("${plugins.%s.%s.%s}", Constants.PROVIDER, Constants.PLUGIN, Constants.DATA_SOURCE)
 				);
 				
 		if(dataSourceName != null && dataSourceName.trim().length() != 0) {
-			ResourceRegistry resourceRegistry = new ResourceRegistry();
-			dataSource = resourceRegistry.lookup(dataSourceName);
+			dataSource = ContextSystemSecurityCheck.doPrivileged(()->resourceRegistry.lookup(dataSourceName));
 		}
 		
 		AnnotationTypeFilter filter = new AnnotationTypeFilter();
