@@ -48,6 +48,7 @@ public abstract class AbstractEntityAccess <T, K>
 		try{
 			K pEntity = this.toPersistenceEntity(value);
 			pEntity = (K)entityManager.merge(pEntity);
+			entityManager.flush();
 		}
 		catch(Throwable e){
 			throw new EntityAccessException(e);
@@ -59,6 +60,7 @@ public abstract class AbstractEntityAccess <T, K>
 			K pEntity = this.toPersistenceEntity(value);
 			pEntity = (K)entityManager.merge(pEntity);
 			entityManager.remove(pEntity);
+			entityManager.flush();
 		}
 		catch(Throwable e){
 			throw new EntityAccessException(e);
