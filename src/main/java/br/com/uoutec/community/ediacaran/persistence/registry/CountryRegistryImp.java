@@ -121,7 +121,8 @@ public class CountryRegistryImp
 		ContextSystemSecurityCheck.checkPermission(new RuntimeSecurityPermission(PERMISSION_PREFIX + "access.language"));
 		
 		try{
-			return this.entityAcess.findAll(lang);
+			List<Country> result = this.entityAcess.findAll(lang);
+			return result.isEmpty()? this.entityAcess.findAll() : result;
 		}
 		catch(Throwable ex){
 			throw new CountryRegistryException(ex);
@@ -133,7 +134,8 @@ public class CountryRegistryImp
 		ContextSystemSecurityCheck.checkPermission(new RuntimeSecurityPermission(PERMISSION_PREFIX + "access.locale"));
 		
 		try{
-			return this.entityAcess.findAll(locale);
+			List<Country> result = this.entityAcess.findAll(locale);
+			return result.isEmpty()? this.entityAcess.findAll() : result;
 		}
 		catch(Throwable ex){
 			throw new CountryRegistryException(ex);
