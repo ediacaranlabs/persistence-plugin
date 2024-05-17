@@ -21,6 +21,8 @@ public interface CountryRegistry extends Registry, PublicBean{
 
 	Country getCountryByUFI(int value, Language lang) throws CountryRegistryException;
 	
+	Country getCountryByUFI(int value, Locale locale) throws CountryRegistryException;
+	
 	Country getCountryByIsoAlpha3(String value) throws CountryRegistryException;
 
 	Country getCountryByIsoAlpha2(String value) throws CountryRegistryException;

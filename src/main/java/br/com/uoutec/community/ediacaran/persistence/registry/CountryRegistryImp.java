@@ -18,7 +18,7 @@ import br.com.uoutec.entity.registry.AbstractRegistry;
 @Default
 public class CountryRegistryImp
 	extends AbstractRegistry
-	implements CountryRegistry{
+	implements CountryRegistry {
 
 	@Inject
 	private CountryEntityAccess entityAcess;
@@ -35,6 +35,18 @@ public class CountryRegistryImp
 		}
 	}
 
+	public Country getCountryByUFI(int value, Locale locale) throws CountryRegistryException{
+		
+		ContextSystemSecurityCheck.checkPermission(new RuntimeSecurityPermission(PERMISSION_PREFIX + "access.ufi"));
+		
+		try{
+			return this.entityAcess.findByUFI(value <= 0?null : value, locale);
+		}
+		catch(Throwable ex){
+			throw new CountryRegistryException(ex);
+		}
+	}
+	
 	public Country getCountryByIsoAlpha2(String value) throws CountryRegistryException{
 		
 		ContextSystemSecurityCheck.checkPermission(new RuntimeSecurityPermission(PERMISSION_PREFIX + "access.isoalpha2"));

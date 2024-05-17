@@ -60,6 +60,35 @@ public class CountryEntityAccessImp
 		}
 	}
 	
+	public Country findByUFI(Integer value, Locale locale) throws EntityAccessException{
+		try {
+			CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+		    CriteriaQuery<CountryHibernateEntity> criteria = builder.createQuery(CountryHibernateEntity.class);
+		    Root<CountryHibernateEntity> from = criteria.from(CountryHibernateEntity.class);
+			Join<Object, Object> languageJoin = from.join("language", JoinType.INNER);
+		    
+		    criteria.select(from);
+		    
+		    Predicate ufi = 
+		    		value == null? 
+	    				builder.isNull(from.get("ufi")) : 
+    					builder.equal(from.get("ufi"), value);
+		    
+		    Predicate langID = builder.equal(languageJoin.get("iso6392t"), locale.getISO3Language());
+			
+			Predicate ufiAndLangID = builder.and(ufi, langID);		
+
+		    criteria.where(ufiAndLangID);
+			
+		    TypedQuery<CountryHibernateEntity> typed = entityManager.createQuery(criteria);			
+		    CountryHibernateEntity e = (CountryHibernateEntity)typed.getSingleResult();
+		    
+			return e == null? null : e.toEntity();
+		}
+		catch (Throwable e) {
+			throw new EntityAccessException(e);
+		}
+	}	
 	public Country findByIsoAlpha3(String value) throws EntityAccessException{
 		try {
 			CriteriaBuilder builder = entityManager.getCriteriaBuilder();

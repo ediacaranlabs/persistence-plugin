@@ -11,6 +11,8 @@ import br.com.uoutec.persistence.EntityAccessException;
 public interface CountryEntityAccess {
 
 	Country findByUFI(Integer value, Language lang) throws EntityAccessException;
+
+	Country findByUFI(Integer value, Locale locale) throws EntityAccessException;
 	
 	Country findByIsoAlpha3(String value) throws EntityAccessException;
 
