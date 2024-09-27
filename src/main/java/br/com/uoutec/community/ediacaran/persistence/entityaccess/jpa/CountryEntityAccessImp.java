@@ -7,6 +7,7 @@ import java.util.Locale;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -55,6 +56,9 @@ public class CountryEntityAccessImp
 		    
 			return e == null? null : e.toEntity();
 		}
+		catch(NoResultException e) {
+			return null;
+		}
 		catch (Throwable e) {
 			throw new EntityAccessException(e);
 		}
@@ -84,6 +88,9 @@ public class CountryEntityAccessImp
 		    CountryHibernateEntity e = (CountryHibernateEntity)typed.getSingleResult();
 		    
 			return e == null? null : e.toEntity();
+		}
+		catch(NoResultException e) {
+			return null;
 		}
 		catch (Throwable e) {
 			throw new EntityAccessException(e);
