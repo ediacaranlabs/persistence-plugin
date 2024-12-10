@@ -9,6 +9,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import br.com.uoutec.application.validation.CommonValidation;
+import br.com.uoutec.community.ediacaran.system.util.SecretUtil;
 import br.com.uoutec.entity.registry.DataValidation;
 import br.com.uoutec.entity.registry.IdValidation;
 import br.com.uoutec.entity.registry.Parent;
@@ -70,6 +71,10 @@ public class Country implements Serializable, ParentEntity{
 		this.region = region;
 	}
 
+	public String getProtectedID() {
+		return SecretUtil.toProtectedID(String.valueOf(id));		
+	}
+	
 	public int getId() {
 		return id;
 	}
