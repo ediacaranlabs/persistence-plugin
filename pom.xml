@@ -63,9 +63,29 @@
 							<goal>copy-dependencies</goal>
 						</goals>
 						<configuration>
-							<excludeScope>provided</excludeScope>
-							<includeScope>runtime</includeScope>
 							<outputDirectory>${project.build.directory}/lib/</outputDirectory>
+							<excludeArtifactIds>
+								ediacaran-junit-mock,
+								application-se,
+								objenesis,
+								ediacaran-junit,
+								mockito-core,
+								opentest4j,
+								junit-jupiter-engine,
+								ediacaran-weld
+							</excludeArtifactIds>
+							<excludeGroupIds>
+								org.jboss.weld.se,
+								org.jboss,
+								org.jboss.weld.servlet,
+								org.mockito,
+								org.junit.jupiter,
+								org.junit.platform,
+								org.apiguardian,
+								org.slf4j,
+								log4j
+							</excludeGroupIds>
+							<excludeScope>provided</excludeScope>
 						</configuration>
 					</execution>
 				</executions>
@@ -91,10 +111,9 @@
 		<!-- persistence -->
 		<!-- hibernate -->
 		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-core</artifactId>
-			<version>5.6.5.Final</version>
-			<scope>provided</scope>
+		    <groupId>org.hibernate</groupId>
+		    <artifactId>hibernate-core</artifactId>
+		    <version>5.4.33.Final</version>
 		</dependency>
 		<!-- transaction -->
 		<dependency>
