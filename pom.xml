@@ -85,7 +85,7 @@
 								org.slf4j,
 								log4j
 							</excludeGroupIds>
-							<excludeScope>provided</excludeScope>
+							<includeScope>runtime</includeScope>
 						</configuration>
 					</execution>
 				</executions>
