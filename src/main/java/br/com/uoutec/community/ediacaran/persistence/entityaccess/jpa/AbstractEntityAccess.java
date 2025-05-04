@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityNotFoundException;
 import javax.persistence.EntityTransaction;
 import javax.persistence.LockModeType;
 import javax.persistence.TypedQuery;
@@ -72,6 +73,9 @@ public abstract class AbstractEntityAccess <T, K>
 			Serializable pk = this.toPersistenceID(value);
 			K pEntity = (K)entityManager.find(this.getEntityClass(), pk);
 			return pEntity == null? null : this.toEntity(pEntity);
+		}
+		catch(EntityNotFoundException e) {
+			return null;
 		}
 		catch(Throwable e){
 			throw new EntityAccessException(e);
