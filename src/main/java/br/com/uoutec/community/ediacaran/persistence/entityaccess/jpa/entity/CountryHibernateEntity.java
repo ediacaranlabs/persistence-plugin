@@ -15,6 +15,7 @@ import javax.persistence.Table;
 import br.com.uoutec.community.ediacaran.persistence.entity.Country;
 import br.com.uoutec.ediacaran.core.plugins.PublicType;
 
+//https://geonames.nga.mil/geonames/GNSData/
 @Entity
 @Table(name="rw_country")
 @EntityListeners(CountryHibernateEntityListener.class)
