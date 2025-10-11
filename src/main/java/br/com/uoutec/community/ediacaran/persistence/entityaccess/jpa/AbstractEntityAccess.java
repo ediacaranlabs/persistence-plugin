@@ -137,7 +137,17 @@ public abstract class AbstractEntityAccess <T, K>
 		    	allQuery.setMaxResults(max);
 		    }
 		    
-		    return allQuery.getResultList();
+		    List<K> list = allQuery.getResultList();
+		    
+			if (list != null) {
+				List<T> r = new ArrayList<T>();
+				for (K e : list) {
+					r.add(toEntity(e));
+				}
+				return r;
+			}
+			
+			return null;
 		}
 		catch(Throwable e){
 			throw new EntityAccessException(e);
