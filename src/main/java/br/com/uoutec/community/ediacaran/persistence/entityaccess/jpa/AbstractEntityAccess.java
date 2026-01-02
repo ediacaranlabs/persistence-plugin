@@ -87,7 +87,7 @@ public abstract class AbstractEntityAccess <T, K>
 			Serializable pk = this.toPersistenceID(value);
 			K pEntity =
 				lock?
-					(K)entityManager.find(this.getEntityClass(), pk, LockModeType.OPTIMISTIC) :
+					(K)entityManager.find(this.getEntityClass(), pk, LockModeType.PESSIMISTIC_WRITE) :
 					(K)entityManager.find(this.getEntityClass(), pk);
 			return pEntity == null? null : this.toEntity(pEntity);
 		}
