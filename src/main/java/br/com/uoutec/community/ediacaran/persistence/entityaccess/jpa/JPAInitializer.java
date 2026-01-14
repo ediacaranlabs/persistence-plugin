@@ -28,6 +28,7 @@ import org.slf4j.LoggerFactory;
 
 import br.com.uoutec.application.scanner.filter.AnnotationTypeFilter;
 import br.com.uoutec.application.security.ContextSystemSecurityCheck;
+import br.com.uoutec.application.security.DoPrivilegedException;
 import br.com.uoutec.application.security.RuntimeSecurityPermission;
 import br.com.uoutec.community.ediacaran.persistence.Constants;
 import br.com.uoutec.community.ediacaran.persistence.SecurityEntitylListener;
@@ -73,10 +74,21 @@ public class JPAInitializer {
 				new Class<?>[] {EntityManager.class},
 				(InvocationHandler)(proxy, method, args)->{
 					
-					return ContextSystemSecurityCheck.doPrivileged(()->{
-						return executeAction(em, method, args);
-					});
-					
+					try {
+						return ContextSystemSecurityCheck.doPrivileged(()->{
+							return executeAction(em, method, args);
+						});
+					}
+					catch(DoPrivilegedException e) {
+						Throwable ex = e.getCause();
+						
+						if(ex instanceof InvocationTargetException) {
+							throw ((InvocationTargetException) ex).getTargetException();
+						}
+						else {
+							throw ex;
+						}
+					}
 				}
 		);
 		
