@@ -6,7 +6,7 @@ import javax.transaction.Transactional;
 
 public class TransactionCaller implements Caller {
 
-	@Transactional
+	@Transactional(rollbackOn = Throwable.class)
     public <V> V call(Callable<V> callable) throws Exception {
         return callable.call();
     }
