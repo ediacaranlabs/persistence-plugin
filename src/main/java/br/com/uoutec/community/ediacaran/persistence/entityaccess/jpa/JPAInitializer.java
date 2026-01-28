@@ -40,13 +40,13 @@ import br.com.uoutec.ediacaran.core.plugins.PluginType;
 @Singleton
 public class JPAInitializer {
 	
-	private static final Logger logger = LoggerFactory.getLogger(JPAInitializer.class);
+	private Logger logger = LoggerFactory.getLogger(JPAInitializer.class);
 	
 	private PluginType pluginData;
 	
 	private VarParser varParser;
 	
-	private EntityManagerFactory emf;
+	private volatile EntityManagerFactory emf;
 
 	private ResourceRegistry resourceRegistry;
 	
@@ -58,7 +58,9 @@ public class JPAInitializer {
 	}
 	
 	public void close(@Disposes EntityManager entityManager) {
+		
 		entityManager.close();
+		
 		if(logger.isTraceEnabled()) {
 			logger.trace("Entity manager closed: {}" , entityManager);
 		}
@@ -67,49 +69,31 @@ public class JPAInitializer {
 	@Produces
 	@RequestScoped
 	public EntityManager createSessionFactory() throws Throwable {
-		EntityManager em = createSessionFactory0();
+		
+		EntityManagerFactory localEMF = emf;
+		
+		if(localEMF == null) {
+			localEMF = createSessionFactory0();
+		}
+		
+		EntityManager em = localEMF.createEntityManager();
+		
+		if(logger.isTraceEnabled()) {
+			logger.trace("Entity manager created: {}" , em);
+		}
 		
 		return (EntityManager) Proxy.newProxyInstance(
 				getClass().getClassLoader(), 
-				new Class<?>[] {EntityManager.class},
-				(InvocationHandler)(proxy, method, args)->{
-					
-					try {
-						return ContextSystemSecurityCheck.doPrivileged(()->{
-							return executeAction(em, method, args);
-						});
-					}
-					catch(DoPrivilegedException e) {
-						Throwable ex = e.getCause();
-						
-						if(ex instanceof InvocationTargetException) {
-							throw ((InvocationTargetException) ex).getTargetException();
-						}
-						else {
-							throw ex;
-						}
-					}
-				}
+				new Class<?>[] {EntityManager.class}, 
+				new InvocationHandlerJPA(em, logger)
 		);
 		
 	}
 	
-	private Object executeAction(EntityManager em, Method method, Object[] args
-			) throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		
-		ContextSystemSecurityCheck.checkPermission(
-				new RuntimeSecurityPermission(
-						"persistence.context." +  method.getName().toLowerCase()
-				)
-		);
-		
-		return method.invoke(em, args);
-	}
-	
-	public EntityManager createSessionFactory0() throws Throwable {
+	public synchronized EntityManagerFactory createSessionFactory0() throws Throwable {
 
 		if(emf != null) {
-			return emf.createEntityManager();
+			return emf;
 		}
 		
 		if(logger.isTraceEnabled()) {
@@ -214,7 +198,51 @@ public class JPAInitializer {
 				
 
 		
-		return emf.createEntityManager();
+		return emf;
 	}
 
+	public static class InvocationHandlerJPA implements InvocationHandler{
+
+		private Logger logger = LoggerFactory.getLogger(JPAInitializer.class);
+		
+		private EntityManager em;
+		
+		public InvocationHandlerJPA(EntityManager em, Logger logger) {
+			this.em = em;
+			this.logger = logger;
+		}
+
+		@Override
+		public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+			
+			return ContextSystemSecurityCheck.doPrivileged(()->{
+				
+				ContextSystemSecurityCheck.checkPermission(
+						new RuntimeSecurityPermission(
+								"persistence.context." +  method.getName().toLowerCase()
+						)
+				);
+				
+				try {
+					if(logger.isTraceEnabled()) {
+						logger.trace(em + ": " + method.toString());
+					}
+					return method.invoke(em, args);
+				}
+				catch(DoPrivilegedException e) {
+					Throwable ex = e.getCause();
+					
+					if(ex instanceof InvocationTargetException) {
+						throw ((InvocationTargetException) ex).getTargetException();
+					}
+					else {
+						throw ex;
+					}
+				}
+				
+			});
+			
+		}
+		
+	}
 }
