@@ -3,6 +3,7 @@ package br.com.uoutec.community.ediacaran.persistence.entityaccess.jpa;
 import java.util.List;
 
 import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
@@ -41,6 +42,18 @@ public class CriteriaBuilderUtil {
 			    and.add(builder.lessThanOrEqualTo(path, end));
 	    	}
 	    	
+	    }
+		
+	}
+	
+	public static <T> void where(CriteriaBuilder builder, CriteriaQuery<T> criteria, List<Predicate> and) {
+	
+	    if(!and.isEmpty()) {
+		    criteria.where(
+		    		builder.and(
+		    				and.stream().toArray(Predicate[]::new)
+					)
+    		);
 	    }
 		
 	}
