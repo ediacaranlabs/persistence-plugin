@@ -51,10 +51,11 @@ public class JPAInitializer {
 	private ResourceRegistry resourceRegistry;
 	
 	@Inject
-	public JPAInitializer(PluginType pluginData,VarParser varParser, ResourceRegistry resourceRegistry) {
+	public JPAInitializer(PluginType pluginData,VarParser varParser, ResourceRegistry resourceRegistry) throws Throwable {
 		this.pluginData = pluginData;
 		this.varParser = varParser;
 		this.resourceRegistry = resourceRegistry;
+		createSessionFactory0();
 	}
 	
 	public void close(@Disposes EntityManager entityManager) {
