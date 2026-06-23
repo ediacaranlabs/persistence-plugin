@@ -1,6 +1,7 @@
 package br.com.uoutec.community.ediacaran.persistence;
 
 import javax.persistence.EntityManager;
+import javax.transaction.UserTransaction;
 
 import br.com.uoutec.community.ediacaran.persistence.entity.Country;
 import br.com.uoutec.community.ediacaran.persistence.entity.Language;
@@ -11,6 +12,7 @@ import br.com.uoutec.community.ediacaran.persistence.registry.LanguageRegistry;
 import br.com.uoutec.community.ediacaran.persistence.registry.LanguageRegistryException;
 import br.com.uoutec.community.ediacaran.persistence.registry.RegionRegistry;
 import br.com.uoutec.community.ediacaran.persistence.registry.RegionRegistryException;
+import br.com.uoutec.ediacaran.core.ResourceRegistry;
 import br.com.uoutec.ediacaran.core.plugins.EntityContextPlugin;
 
 public class DataLoaderHelper {
@@ -95,10 +97,23 @@ public class DataLoaderHelper {
 		registerCountryBrasilEnLang();
 	}
 
+	
 	public static void clearData() {
 		EntityManager em = EntityContextPlugin.getEntity(EntityManager.class);
 		em.createNativeQuery("TRUNCATE SCHEMA PUBLIC RESTART IDENTITY AND COMMIT NO CHECK").executeUpdate();
 		em.clear();
 	}
+	
+	
+	public static void transactionalClearData() throws Exception {
+		ResourceRegistry resourceRegistry = EntityContextPlugin.getEntity(ResourceRegistry.class);
+		UserTransaction userTransaction = (UserTransaction) resourceRegistry.lookup("java:comp/UserTransaction");
+		userTransaction.begin();
+		EntityManager em = EntityContextPlugin.getEntity(EntityManager.class);
+		em.createNativeQuery("TRUNCATE SCHEMA PUBLIC RESTART IDENTITY AND COMMIT NO CHECK").executeUpdate();
+		em.clear();
+		userTransaction.commit();
+	}
+	
 	
 }
