@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -46,6 +47,9 @@ public class LanguageEntityAccessImp
 		    
 			return e == null? null : e.toEntity();
 		}
+		catch (NoResultException e) {
+			return null;
+		}
 		catch (Throwable e) {
 			throw new EntityAccessException(e);
 		}
@@ -69,6 +73,9 @@ public class LanguageEntityAccessImp
 		    LanguageHibernateEntity e = (LanguageHibernateEntity)typed.getSingleResult();
 		    
 			return e == null? null : e.toEntity();
+		}
+		catch (NoResultException e) {
+			return null;
 		}
 		catch (Throwable e) {
 			throw new EntityAccessException(e);

@@ -3,6 +3,7 @@ package br.com.uoutec.community.ediacaran.core.persistence.registry;
 import static br.com.uoutec.ediacaran.core.plugins.EntityContextPlugin.getEntity;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.concurrent.Callable;
@@ -12,8 +13,6 @@ import javax.persistence.TransactionRequiredException;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-
-import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 import br.com.uoutec.community.ediacaran.persistence.DataLoaderHelper;
 import br.com.uoutec.community.ediacaran.persistence.entity.Language;
@@ -47,16 +46,8 @@ public class JTATransactionTest {
 						.withProperty("persistence", "transaction_type", "JTA")
 						.withProperty("persistence", "properties", 
 							new StringBuilder()
-							.append("properties.validation_mode.value=hibernate.dialect=org.hibernate.dialect.MySQLDialect\n")
-							.append("hibernate.connection.release_mode=after_statement\n")
-							.append("hibernate.transaction.jta.platform=org.hibernate.engine.transaction.jta.platform.internal.JBossStandAloneJtaPlatform\n")
-							.append("hibernate.transaction.factory_class=org.hibernate.engine.transaction.internal.jta.JtaTransactionFactory\n")
-							.append("hibernate.current_session_context_class=org.hibernate.context.internal.JTASessionContext\n")
-							.append("hibernate.hbm2ddl.auto=update\n")
-							
-							//don't use in production
-							//.append("hibernate.allow_update_outside_transaction=true\n")
-							
+								.append("hibernate.dialect=org.hibernate.dialect.HSQLDialect\n")
+								.append("hibernate.hbm2ddl.auto=update\n")
 							.toString()
 						)
 				.build())
@@ -64,14 +55,9 @@ public class JTATransactionTest {
 				.withSystemProperty("java.naming.factory.initial", "org.apache.naming.java.javaURLContextFactory")
 				.withResource(ResourceBuilder.builder()
 						.withName("java:comp/env/ds/database")
-						.withType(ComboPooledDataSource.class.getName())
-						.withProperty("driverClass", "com.arjuna.ats.jdbc.TransactionalDriver")
-						.withProperty("jdbcUrl", "jdbc:arjuna:java:comp/env/ds/direct_database")
-						.withProperty("initialPoolSize", 10)
-						.withProperty("minPoolSize", 5)
-						.withProperty("maxPoolSize", 100)
-						.withProperty("maxStatements", 1000)
-						.withProperty("maxStatementsPerConnection", 20)
+						.withType(org.apache.tomcat.jdbc.pool.DataSource.class.getName())
+						.withProperty("driverClassName", "com.arjuna.ats.jdbc.TransactionalDriver")
+						.withProperty("url", "jdbc:arjuna:java:comp/env/ds/direct_database")
 				.build())
 				.withResource(ResourceBuilder.builder()
 						.withName("java:comp/env/TransactionSynchronizationRegistry")
@@ -117,6 +103,30 @@ public class JTATransactionTest {
 		
 	}
 
+	@Test
+	@ActivateRequestContext
+	public void rollbackTransactionTest(LanguageRegistry languageRegistry) throws Exception {
+
+		DataLoaderHelper.transactionalClearData();
+		
+		try {
+			getEntity(TransactionCaller.class)
+				.call(new Callable<Object>() {
+			            public Object call() throws Exception {
+				            	DataLoaderHelper.registerLangPt();
+				            	throw new RuntimeException();
+			            }
+		        });
+		}
+		catch(Throwable ex) {
+		}
+		
+		Language lang = languageRegistry.getLanguageByIso6391("pt");
+		
+		assertNull(lang);
+		
+	}
+	
 	
 	@Test
 	@ActivateRequestContext
