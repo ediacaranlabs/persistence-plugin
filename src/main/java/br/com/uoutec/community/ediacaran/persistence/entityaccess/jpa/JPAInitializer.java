@@ -125,7 +125,8 @@ public class JPAInitializer {
 		return result.entityManagerFactory;
 	}
 	
-	public static class EntityManagerFactoryCreatorTask implements Callable<EntityManagerFactoryCreatorResult>{
+	public static class EntityManagerFactoryCreatorTask 
+		implements Callable<EntityManagerFactoryCreatorResult> {
 
 		private PluginType pluginData;
 		
@@ -156,7 +157,9 @@ public class JPAInitializer {
 			EntityManagerFactory entityManagerFactory = null;
 			try {
 				EntityManagerFactoryCreator emfc = new EntityManagerFactoryCreator(pluginData, varParser, resourceRegistry);
-				entityManagerFactory = emfc.createSessionFactory();
+				entityManagerFactory = ContextSystemSecurityCheck.doPrivileged(()->{
+					return emfc.createSessionFactory();
+				});
 				return new EntityManagerFactoryCreatorResult(entityManagerFactory, null);
 			}
 			catch(Throwable ex) {

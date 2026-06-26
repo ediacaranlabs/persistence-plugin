@@ -176,7 +176,7 @@ public abstract class AbstractEntityAccess <T, K>
 	}
 	
 	public void flush(){
-		//this.entityManager.flush();
+		this.entityManager.flush();
 	}
 	
 	

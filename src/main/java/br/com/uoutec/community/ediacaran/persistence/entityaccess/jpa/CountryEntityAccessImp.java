@@ -185,12 +185,13 @@ public class CountryEntityAccessImp
 		    CriteriaQuery<CountryHibernateEntity> criteria = builder.createQuery(CountryHibernateEntity.class);
 		    Root<CountryHibernateEntity> from = criteria.from(CountryHibernateEntity.class);
 			Join<Object, Object> languageJoin = from.join("language", JoinType.INNER);
-		    
+
+			String lang = locale.getISO3Language();
 		    criteria.select(from);
 
 		    criteria.where(
 		    		builder.equal(
-		    				languageJoin.get("iso6392t"), locale.getISO3Language()
+		    				languageJoin.get("iso6392t"), lang
     				)
     		);
 			

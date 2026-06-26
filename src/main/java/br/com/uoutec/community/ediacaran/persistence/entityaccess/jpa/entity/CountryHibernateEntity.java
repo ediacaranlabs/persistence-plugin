@@ -48,7 +48,7 @@ public class CountryHibernateEntity implements PublicType {
 	private String iso4217;
 
 	@OneToOne
-	@JoinColumn(name = "cod_language", updatable = true, insertable = true)
+	@JoinColumn(name = "cod_language")
 	private LanguageHibernateEntity language;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
