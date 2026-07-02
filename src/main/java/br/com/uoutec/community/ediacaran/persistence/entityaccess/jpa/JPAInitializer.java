@@ -157,9 +157,7 @@ public class JPAInitializer {
 			EntityManagerFactory entityManagerFactory = null;
 			try {
 				EntityManagerFactoryCreator emfc = new EntityManagerFactoryCreator(pluginData, varParser, resourceRegistry);
-				entityManagerFactory = ContextSystemSecurityCheck.doPrivileged(()->{
-					return emfc.createSessionFactory();
-				});
+				entityManagerFactory = emfc.createSessionFactory();
 				return new EntityManagerFactoryCreatorResult(entityManagerFactory, null);
 			}
 			catch(Throwable ex) {
