@@ -26,8 +26,7 @@ import org.slf4j.LoggerFactory;
 import br.com.uoutec.application.security.ContextSystemSecurityCheck;
 import br.com.uoutec.application.security.DoPrivilegedException;
 import br.com.uoutec.application.security.RuntimeSecurityPermission;
-import br.com.uoutec.community.ediacaran.system.concurrent.ExecutorServicesProducer;
-import br.com.uoutec.community.ediacaran.system.concurrent.ThreadGroupManager;
+import br.com.uoutec.community.ediacaran.system.concurrent.PluginThreadPoolExecutor;
 import br.com.uoutec.ediacaran.core.ResourceRegistry;
 import br.com.uoutec.ediacaran.core.VarParser;
 import br.com.uoutec.ediacaran.core.plugins.EntityContextPlugin;
@@ -46,17 +45,17 @@ public class JPAInitializer {
 
 	private ResourceRegistry resourceRegistry;
 	
-	private ThreadGroupManager threadGroupManager;
+	//private ThreadGroupManager threadGroupManager;
 	
 	private ExecutorService defaultExecutorService;
 	
 	@Inject
-	public JPAInitializer(PluginType pluginData,VarParser varParser, ResourceRegistry resourceRegistry, ThreadGroupManager threadGroupManager) throws Throwable {
+	public JPAInitializer(PluginType pluginData,VarParser varParser, ResourceRegistry resourceRegistry, PluginThreadPoolExecutor pluginThreadPoolExecutor) throws Throwable {
 		this.pluginData = pluginData;
 		this.varParser = varParser;
 		this.resourceRegistry = resourceRegistry;
-		this.threadGroupManager = threadGroupManager;
-		this.defaultExecutorService = this.threadGroupManager.getThreadGroup(ExecutorServicesProducer.DEFAULT_THREAD_GROUP);
+		//this.threadGroupManager = threadGroupManager;
+		this.defaultExecutorService = pluginThreadPoolExecutor;
 		createSessionFactory0();
 	}
 	
