@@ -142,7 +142,8 @@ public abstract class AbstractEntityAccess <T, K>
 			if (list != null) {
 				List<T> r = new ArrayList<T>();
 				for (K e : list) {
-					r.add(toEntity(e));
+					T t = toEntity(e);
+					r.add(t);
 				}
 				return r;
 			}
